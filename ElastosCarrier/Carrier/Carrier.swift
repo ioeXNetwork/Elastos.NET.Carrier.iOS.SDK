@@ -23,7 +23,7 @@
 import Foundation
 
 @inline(__always) internal func getErrorCode() -> Int {
-    let error = ela_get_error()
+    let error = IOEX_get_error()
     return Int(error & 0x7FFFFFFF)
 }
 
@@ -56,7 +56,7 @@ public class Carrier: NSObject {
     ///
     /// - Returns: The current carrier node version.
     public static func getVersion() -> String {
-        return String(cString: ela_get_version())
+        return String(cString: IOEX_get_version())
     }
 
     /// Check if the carrier address ID is valid.
@@ -83,7 +83,7 @@ public class Carrier: NSObject {
     /// - Parameter level: The log level
     public static func setLogLevel(_ level: CarrierLogLevel) {
         Log.setLevel(level)
-        ela_log_init(convertCarrierLogLevelToCLogLevel(level), nil, nil)
+        IOEX_log_init(convertCarrierLogLevelToCLogLevel(level), nil, nil)
     }
 
     /// Get a carrier node singleton instance. After getting the instance
@@ -110,7 +110,7 @@ public class Carrier: NSObject {
             let carrier = Carrier(delegate)
             var chandler = getNativeHandlers()
             let cctxt = Unmanaged.passUnretained(carrier).toOpaque()
-            let ccarrier = ela_new(&copts, &chandler, cctxt)
+            let ccarrier = IOEX_new(&copts, &chandler, cctxt)
 
             guard ccarrier != nil else {
                 let errno = getErrorCode()
@@ -164,7 +164,7 @@ public class Carrier: NSObject {
 
         backgroundQueue.async {
             Log.i(Carrier.TAG, "Native carrier node started.")
-            _ = ela_run(weakSelf?.ccarrier, Int32(iterateInterval))
+            _ = IOEX_run(weakSelf?.ccarrier, Int32(iterateInterval))
             Log.i(Carrier.TAG, "Native carrier node stopped.")
 
             DispatchQueue.global(qos: .background).async {
@@ -184,7 +184,7 @@ public class Carrier: NSObject {
         if (!didKill) {
             Log.d(Carrier.TAG, "Actively to kill native carrier node ...");
 
-            ela_kill(ccarrier)
+            IOEX_kill(ccarrier)
             ccarrier = nil
             semaph.wait()
             Carrier.carrierInst = nil
@@ -205,7 +205,7 @@ public class Carrier: NSObject {
         
             let address = data.withUnsafeMutableBytes() {
                 (ptr: UnsafeMutablePointer<Int8>) -> String in
-                return String(cString: ela_get_address(ccarrier, ptr, len))
+                return String(cString: IOEX_get_address(ccarrier, ptr, len))
             }
         
             Log.d(Carrier.TAG, "Current carrier address: \(address)")
@@ -221,7 +221,7 @@ public class Carrier: NSObject {
 
         let nodeId = data.withUnsafeMutableBytes() {
             (ptr: UnsafeMutablePointer<Int8>) -> String in
-            return String(cString: ela_get_nodeid(ccarrier, ptr, len))
+            return String(cString: IOEX_get_nodeid(ccarrier, ptr, len))
         }
 
         Log.d(Carrier.TAG, "Current carrier NodeId: \(nodeId)")
@@ -237,7 +237,7 @@ public class Carrier: NSObject {
 
         let userId = data.withUnsafeMutableBytes() {
             (ptr: UnsafeMutablePointer<Int8>) -> String in
-                return String(cString: ela_get_userid(ccarrier, ptr, len))
+                return String(cString: IOEX_get_userid(ccarrier, ptr, len))
         }
 
         Log.d(Carrier.TAG, "Current carrier UserId: \(userId)")
@@ -254,7 +254,7 @@ public class Carrier: NSObject {
     ///
     /// - Throws: CarrierError
     public func setSelfNospam(_ newNospam: UInt32) throws {
-        let result = ela_set_self_nospam(ccarrier, newNospam)
+        let result = IOEX_set_self_nospam(ccarrier, newNospam)
 
         guard result >= 0 else {
             let errno: Int = getErrorCode()
@@ -276,7 +276,7 @@ public class Carrier: NSObject {
     /// - Throws: CarrierError
     public func getSelfNospam() throws -> UInt32 {
         var nospam: UInt32 = 0
-        let result = ela_get_self_nospam(ccarrier, &nospam)
+        let result = IOEX_get_self_nospam(ccarrier, &nospam)
 
         guard result >= 0 else {
             let errno: Int = getErrorCode()
@@ -299,7 +299,7 @@ public class Carrier: NSObject {
     /// - Throws: CarrierError
     public func setSelfUserInfo(_ newUserInfo: CarrierUserInfo) throws {
         var cinfo = convertCarrierUserInfoToCUserInfo(newUserInfo)
-        let result = ela_set_self_info(ccarrier, &cinfo)
+        let result = IOEX_set_self_info(ccarrier, &cinfo)
 
         guard result >= 0 else {
             let errno: Int = getErrorCode()
@@ -318,7 +318,7 @@ public class Carrier: NSObject {
     @objc(getSelfUserInfo:)
     public func getSelfUserInfo() throws -> CarrierUserInfo {
         var cinfo = CUserInfo()
-        let result = ela_get_self_info(ccarrier, &cinfo)
+        let result = IOEX_get_self_info(ccarrier, &cinfo)
 
         guard result >= 0 else {
             let errno: Int = getErrorCode()
@@ -338,7 +338,7 @@ public class Carrier: NSObject {
     /// - Throws: CarrierError
     public func setSelfPresence(_ newPresence: CarrierPresenceStatus) throws {
         let presence = convertCarrierPresenceStatusToCPresenceStatus(newPresence)
-        let result = ela_set_self_presence(ccarrier, presence)
+        let result = IOEX_set_self_presence(ccarrier, presence)
 
         guard result >= 0 else {
             let errno: Int = getErrorCode()
@@ -357,7 +357,7 @@ public class Carrier: NSObject {
     //@objc(getSelfPresence:)
     public func getSelfPresence() throws -> CarrierPresenceStatus {
         var cpresence = CPresenceStatus_None
-        let result = ela_get_self_presence(ccarrier, &cpresence)
+        let result = IOEX_get_self_presence(ccarrier, &cpresence)
 
         guard result >= 0 else {
             let errno: Int = getErrorCode()
@@ -374,7 +374,7 @@ public class Carrier: NSObject {
     ///
     /// - Returns: true if the carrier node instance is ready, or false if not
     public func isReady() -> Bool {
-        return ela_is_ready(ccarrier)
+        return IOEX_is_ready(ccarrier)
     }
 
     /// Get current user's friend list
@@ -398,7 +398,7 @@ public class Carrier: NSObject {
         var friends = [CarrierFriendInfo]()
         let result = withUnsafeMutablePointer(to: &friends) { (ptr) -> Int32 in
             let cctxt = UnsafeMutableRawPointer(ptr)
-            return ela_get_friends(ccarrier, cb, cctxt)
+            return IOEX_get_friends(ccarrier, cb, cctxt)
         }
 
         guard result >= 0 else {
@@ -427,7 +427,7 @@ public class Carrier: NSObject {
     public func getFriendInfo(_ friendId: String) throws ->CarrierFriendInfo {
         var cinfo = CFriendInfo()
         let result = friendId.withCString { (cfriendId) -> Int32 in
-            return ela_get_friend_info(ccarrier, cfriendId, &cinfo)
+            return IOEX_get_friend_info(ccarrier, cfriendId, &cinfo)
         }
 
         guard result >= 0 else {
@@ -457,7 +457,7 @@ public class Carrier: NSObject {
 
         let result = friendId.withCString { (cfriendId) in
             return newLabel.withCString { (clabel) in
-                return ela_set_friend_label(ccarrier, cfriendId, clabel);
+                return IOEX_set_friend_label(ccarrier, cfriendId, clabel);
             }
         }
 
@@ -478,7 +478,7 @@ public class Carrier: NSObject {
     @objc(isFriendWithUser:)
     public func isFriend(with userId: String) -> Bool {
         return userId.withCString { (ptr) -> Bool in
-            return Bool(ela_is_friend(ccarrier, ptr))
+            return Bool(IOEX_is_friend(ccarrier, ptr))
         }
     }
 
@@ -501,7 +501,7 @@ public class Carrier: NSObject {
 
         let result = userId.withCString { (cuserId) in
             return hello.withCString { (chello) in
-                return ela_add_friend(ccarrier, cuserId, chello)
+                return IOEX_add_friend(ccarrier, cuserId, chello)
             }
         }
 
@@ -526,7 +526,7 @@ public class Carrier: NSObject {
     public func acceptFriend(with userId: String) throws {
 
         let result = userId.withCString { (cuserId) -> Int32 in
-            return ela_accept_friend(ccarrier, cuserId)
+            return IOEX_accept_friend(ccarrier, cuserId)
         }
 
         guard result >= 0 else {
@@ -549,7 +549,7 @@ public class Carrier: NSObject {
     /// - Throws: CarrierError
     public func removeFriend(_ friendId: String) throws {
         let result = friendId.withCString { (cfriendId) -> Int32 in
-            return ela_remove_friend(ccarrier, cfriendId)
+            return IOEX_remove_friend(ccarrier, cfriendId)
         }
 
         guard result >= 0 else {
@@ -577,7 +577,7 @@ public class Carrier: NSObject {
         let result = target.withCString {(cto) in
             return msg.withCString { (cmsg) -> Int32 in
                 let len: Int = msg.utf8CString.count
-                return ela_send_friend_message(ccarrier, cto, cmsg, len)
+                return IOEX_send_friend_message(ccarrier, cto, cmsg, len)
             }
         }
 
@@ -639,7 +639,7 @@ public class Carrier: NSObject {
         let result = target.withCString { (cto) -> Int32 in
             return data.withCString { (cdata) -> Int32 in
                 let len = data.utf8CString.count
-                return ela_invite_friend(ccarrier, cto, cdata, len, cb, cctxt)
+                return IOEX_invite_friend(ccarrier, cto, cdata, len, cb, cctxt)
             }
         }
 
@@ -713,7 +713,7 @@ public class Carrier: NSObject {
                 }
             }
 
-            return ela_reply_friend_invite(ccarrier, cto, CInt(status),
+            return IOEX_reply_friend_invite(ccarrier, cto, CInt(status),
                                            creason, cdata, len)
         }
 
@@ -729,29 +729,67 @@ public class Carrier: NSObject {
     /**
      KJ Test
      */
-    //@objc(TSFile_Init:)
-    public func TSFile_Init(carrier: Carrier, filePath:String) -> Int32 {
-
-        let cb: CReceivedComplete = {
-            fileName,realFileName  in
-            
-            print("filename = \(String(describing: fileName)), realFileNmae = \(String(describing: realFileName))")
-            
-            var dele:CarrierDelegate?
-            dele?.didTSFileReceivedComplete(_FileName: String(describing: fileName), _RealFileName: String(describing: realFileName) )
-        }
+    
+    ///internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
+    ///                                     _ friendid: UnsafePointer<Int8>!,
+    ///                                     _ filename: UnsafePointer<Int8>!) -> Int32
+    public func sendFileRequest(carrier: Carrier, friendid:String, filename:String) -> Int32 {
         
-        IOEX_TSFile_ReceivedComplete_Callback(carrier: ccarrier, cb)
-        return IOEX_TSFile_Init(ccarrier, path: filePath)
+        return IOEX_send_file_request(ccarrier, friendid, filename)
     }
     
-    //@objc(TSFile_Request:)
-    public func TSFile_Request(carrier: Carrier,
-                               address:String,
-                               filename:String,
-                               start_byte:Int) -> Int32 {
-        return IOEX_TSFile_Request(ccarrier, address: address, filename: filename, start_byte: start_byte)
+    ///internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
+    ///                                    _ friendid: UnsafePointer<Int8>!,
+    ///                                    _ fileindex: UnsafePointer<Int8>!,
+    ///                                    _ filename: UnsafePointer<Int8>!,
+    ///                                    _ filepath: UnsafePointer<Int8>!) -> Int32
+    public func sendFileAccept(carrier: Carrier, friendid:String, fileindex:String, filename:String, filepath:String) -> Int32 {
+        
+        return IOEX_send_file_accept(ccarrier, friendid, fileindex,filename,filepath)
     }
+    
+    ///internal typealias CFilesIterateCallback = @convention(c)( UnsafeRawPointer?, UnsafeRawPointer?, UnsafeMutableRawPointer?) -> Bool
+    ///@_silgen_name("IOEX_get_files")
+    ///internal func IOEX_get_files(_ carrier: OpaquePointer!,
+    ///                             _ callback: CFriendInviteResponseCallback!,
+    ///                             _ context: UnsafeMutableRawPointer!) -> Int32
+    ///IOEXFilesIterateCallback(int direction, const IOEXFileInfo *info, void *context);
+    
+    public func getFiles(carrier: Carrier, filename:String) -> Int32 {
+        let cb: CFilesIterateCallback = {
+            direction,fileInfo,context   in
+            print("===direction = \(String(describing: direction))===")
+            //            delegate?.didTSFileReceivedComplete(_FileName: String.init(cString: fileName!), _RealFileName: String.init(cString: realFileName!) )
+            //            self.receivedCompleteEvent(fname: String.init(cString: fileName!), ofname: String.init(cString: realFileName!))
+            return true
+        }
+        
+        return IOEX_get_files(ccarrier, cb, nil)
+    }
+    
+    //@objc(TSFile_Init:)
+//    public func TSFile_Init(carrier: Carrier, filePath:String) -> Int32 {
+//
+//        let cb: CReceivedComplete = {
+//            fileName,realFileName  in
+//            print("filename = \(String.init(cString: fileName!)), realFileNmae = \(String.init(cString: realFileName!))")
+////            delegate?.didTSFileReceivedComplete(_FileName: String.init(cString: fileName!), _RealFileName: String.init(cString: realFileName!) )
+////            self.receivedCompleteEvent(fname: String.init(cString: fileName!), ofname: String.init(cString: realFileName!))
+//        }
+//
+//        IOEX_TSFile_ReceivedComplete_Callback(carrier: ccarrier, cb)
+//        return IOEX_TSFile_Init(ccarrier, path: filePath)
+//    }
+    
+    //@objc(TSFile_Request:)
+//    public func TSFile_Request(carrier: Carrier,
+//                               address:String,
+//                               filename:String,
+//                               start_byte:Int) -> Int32 {
+//        return IOEX_TSFile_Request(ccarrier, address: address, filename: filename, start_byte: start_byte)
+//    }
+    
+
     
 //    func TSFile_ReceivedComplete_Callback(carrier: Carrier, callbackf:@escaping CReceivedComplete ) -> Int32 {
 //        return IOEX_TSFile_ReceivedComplete_Callback(carrier: ccarrier, callbackf)

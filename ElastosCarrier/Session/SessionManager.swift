@@ -60,7 +60,7 @@ public class CarrierSessionManager: NSObject {
         if (sessionMgr == nil) {
             Log.d(TAG(), "Begin to initialize native carrier session manager...")
 
-            let result = ela_session_init(carrier.ccarrier, nil, nil)
+            let result = IOEX_session_init(carrier.ccarrier, nil, nil)
 
             guard result >= 0 else {
                 let errno = getErrorCode()
@@ -122,7 +122,7 @@ public class CarrierSessionManager: NSObject {
 
             let cctxt = Unmanaged.passUnretained(sessionManager).toOpaque()
 
-            let result = ela_session_init(carrier.ccarrier, cb, cctxt)
+            let result = IOEX_session_init(carrier.ccarrier, cb, cctxt)
 
             guard result >= 0 else {
                 let errno = getErrorCode()
@@ -164,7 +164,7 @@ public class CarrierSessionManager: NSObject {
         if !didCleanup {
             Log.d(TAG(), "Begin clean up native carrier session manager ...")
 
-            ela_session_cleanup(carrier!.ccarrier)
+            IOEX_session_cleanup(carrier!.ccarrier)
             carrier = nil
             CarrierSessionManager.sessionMgr = nil
             didCleanup = true
@@ -188,7 +188,7 @@ public class CarrierSessionManager: NSObject {
         throws -> CarrierSession {
 
         let ctmp = target.withCString { (ptr) -> OpaquePointer? in
-            return ela_session_new(carrier!.ccarrier, ptr)
+            return IOEX_session_new(carrier!.ccarrier, ptr)
         }
 
         guard ctmp != nil else {

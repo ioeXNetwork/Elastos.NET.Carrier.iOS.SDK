@@ -168,10 +168,10 @@ internal typealias CSessionRequestCallback = @convention(c)
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_session_init")
-internal func ela_session_init(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_session_init")
+internal func IOEX_session_init(_ carrier: OpaquePointer!,
                                _ callback: CSessionRequestCallback!,
                                _ context: UnsafeMutableRawPointer!) -> Int32
 
@@ -179,7 +179,7 @@ internal func ela_session_init(_ carrier: OpaquePointer!,
  * \~English
  * Clean up Carrier session extension.
  *
- * The application should call ela_session_cleanup before quit,
+ * The application should call IOEX_session_cleanup before quit,
  * to clean up the resources associated with the extension.
  *
  * If the extension is not initialized, this function has no effect.
@@ -187,8 +187,8 @@ internal func ela_session_init(_ carrier: OpaquePointer!,
  * @param
  *      carrier [in] A handle to the carrier node instance.
  */
-@_silgen_name("ela_session_cleanup")
-internal func ela_session_cleanup(_ carrier: OpaquePointer!)
+@_silgen_name("IOEX_session_cleanup")
+internal func IOEX_session_cleanup(_ carrier: OpaquePointer!)
 
 /**
  * \~English
@@ -204,10 +204,10 @@ internal func ela_session_cleanup(_ carrier: OpaquePointer!)
  * @return
  *      If no error occurs, return the pointer of ElaSession object.
  *      Otherwise, return NULL, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_session_new")
-internal func ela_session_new(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_session_new")
+internal func IOEX_session_new(_ carrier: OpaquePointer!,
                               _ address: UnsafePointer<Int8>!) -> OpaquePointer!
 
 /**
@@ -218,8 +218,8 @@ internal func ela_session_new(_ carrier: OpaquePointer!,
  * @param
  *      session     [in] A handle to the carrier session.
  */
-@_silgen_name("ela_session_close")
-internal func ela_session_close(_ session: OpaquePointer!)
+@_silgen_name("IOEX_session_close")
+internal func IOEX_session_close(_ session: OpaquePointer!)
 
 /**
  * \~English
@@ -230,15 +230,15 @@ internal func ela_session_close(_ session: OpaquePointer!)
  * @param
  *      address     [out] The buffer that will receive the peer address.
  *                        The buffer size should at least
- *                        (2 * ELA_MAX_ID_LEN + 1) bytes.
+ *                        (2 * IOEX_MAX_ID_LEN + 1) bytes.
  * @param
  *      len         [in] The buffer size of appid.
  *
  * @return
  *      The remote peer string address, or NULL if buffer is too small.
  */
-@_silgen_name("ela_session_get_peer")
-internal func ela_session_get_peer(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_get_peer")
+internal func IOEX_session_get_peer(_ session: OpaquePointer!,
                                    _ address: UnsafePointer<Int8>!,
                                    _ len: Int) -> UnsafePointer<Int8>!
 
@@ -251,8 +251,8 @@ internal func ela_session_get_peer(_ session: OpaquePointer!,
  * @param
  *      userdata    [in] Arbitary user data to be associated with this session.
  */
-@_silgen_name("ela_session_set_userdata")
-internal func ela_session_set_userdata(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_set_userdata")
+internal func IOEX_session_set_userdata(_ session: OpaquePointer!,
                              _ userdata: UnsafeMutableRawPointer!) -> Swift.Void
 /**
  * \~English
@@ -264,8 +264,8 @@ internal func ela_session_set_userdata(_ session: OpaquePointer!,
  * @return
  *      The user data associated with session.
  */
-@_silgen_name("ela_session_get_userdata")
-internal func ela_session_get_userdata(_ session: OpaquePointer!) -> UnsafeMutableRawPointer!
+@_silgen_name("IOEX_session_get_userdata")
+internal func IOEX_session_get_userdata(_ session: OpaquePointer!) -> UnsafeMutableRawPointer!
 
 /**
  * \~English
@@ -307,10 +307,10 @@ internal typealias CSessionRequestCompleteCallback = @convention(c)
  * @return
  *      0 if the session request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_session_request")
-internal func ela_session_request(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_request")
+internal func IOEX_session_request(_ session: OpaquePointer!,
                                   _ callback: CSessionRequestCompleteCallback!,
                                   _ context: UnsafeMutableRawPointer!) -> Int32
 
@@ -332,10 +332,10 @@ internal func ela_session_request(_ session: OpaquePointer!,
  * @return
  *      0 if the session response successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_session_reply_request")
-internal func ela_session_reply_request(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_reply_request")
+internal func IOEX_session_reply_request(_ session: OpaquePointer!,
                                         _ status: Int32,
                                         _ reason: UnsafePointer<Int8>!) -> Int32
 
@@ -356,10 +356,10 @@ internal func ela_session_reply_request(_ session: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_session_start")
-internal func ela_session_start(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_start")
+internal func IOEX_session_start(_ session: OpaquePointer!,
                                 _ sdp: UnsafePointer<Int8>!,
                                 _ len: Int) -> Int32
 /**
@@ -624,13 +624,13 @@ internal struct CStreamCallbacks {
  *                       by a bitwise-inclusive OR of flags from the
  *                       following list:
  *
- *                       - ELA_STREAM_PLAIN
+ *                       - IOEX_STREAM_PLAIN
  *                         Plain mode.
- *                       - ELA_STREAM_RELIABLE
+ *                       - IOEX_STREAM_RELIABLE
  *                         Reliable mode.
- *                       - ELA_STREAM_MULTIPLEXING
+ *                       - IOEX_STREAM_MULTIPLEXING
  *                         Multiplexing mode.
- *                       - ELA_STREAM_PORT_FORWARDING
+ *                       - IOEX_STREAM_PORT_FORWARDING
  *                         Support portforwarding over multiplexing.
  *
  * @param
@@ -642,10 +642,10 @@ internal struct CStreamCallbacks {
  * @return
  *      Return stream id on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_session_add_stream")
-internal func ela_session_add_stream(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_add_stream")
+internal func IOEX_session_add_stream(_ session: OpaquePointer!,
                                      _ type: CStreamType,
                                      _ options: Int32,
                                      _ callbacks: UnsafeMutablePointer<CStreamCallbacks>!,
@@ -663,10 +663,10 @@ internal func ela_session_add_stream(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_session_remove_stream")
-internal func ela_session_remove_stream(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_remove_stream")
+internal func IOEX_session_remove_stream(_ session: OpaquePointer!,
                                         _ stream: Int32) -> Int32
 
 /**
@@ -691,10 +691,10 @@ internal func ela_session_remove_stream(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_session_add_service")
-internal func ela_session_add_service(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_add_service")
+internal func IOEX_session_add_service(_ session: OpaquePointer!,
                                       _ service: UnsafePointer<Int8>!,
                                       _ protocol: CPortForwardingProtocol,
                                       _ host: UnsafePointer<Int8>!,
@@ -711,8 +711,8 @@ internal func ela_session_add_service(_ session: OpaquePointer!,
  * @param
  *      service     [in] The service name.
  */
-@_silgen_name("ela_session_remove_service")
-internal func ela_session_remove_service(_ session: OpaquePointer!,
+@_silgen_name("IOEX_session_remove_service")
+internal func IOEX_session_remove_service(_ session: OpaquePointer!,
                                          _ service: UnsafePointer<Int8>!)
 
 /**
@@ -729,10 +729,10 @@ internal func ela_session_remove_service(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_get_type")
-internal func ela_stream_get_type(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_get_type")
+internal func IOEX_stream_get_type(_ session: OpaquePointer!,
                                   _ stream: Int32,
                                   _ type: UnsafeMutablePointer<CStreamType>!) -> Int32
 
@@ -750,10 +750,10 @@ internal func ela_stream_get_type(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_get_state")
-internal func ela_stream_get_state(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_get_state")
+internal func IOEX_stream_get_state(_ session: OpaquePointer!,
                                    _ stream: Int32,
                                    _ state: UnsafeMutablePointer<CStreamState>) -> Int32
 
@@ -772,10 +772,10 @@ internal func ela_stream_get_state(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_get_transport_info")
-internal func ela_stream_get_transport_info(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_get_transport_info")
+internal func IOEX_stream_get_transport_info(_ session: OpaquePointer!,
                                             _ stream: Int32,
                                             _ info: UnsafeMutablePointer<CTransportInfo>!) -> Int32
 
@@ -799,10 +799,10 @@ internal func ela_stream_get_transport_info(_ session: OpaquePointer!,
  * @return
  *      Sent bytes on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_write")
-internal func ela_stream_write(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_write")
+internal func IOEX_stream_write(_ session: OpaquePointer!,
                                _ stream: Int32,
                                _ data: UnsafeRawPointer!,
                                _ len: Int) -> Int
@@ -823,10 +823,10 @@ internal func ela_stream_write(_ session: OpaquePointer!,
  * @return
  *      New channel ID on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_open_channel")
-internal func ela_stream_open_channel(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_open_channel")
+internal func IOEX_stream_open_channel(_ session: OpaquePointer!,
                                       _ stream: Int32,
                                       _ cookie: UnsafePointer<Int8>!) -> Int32
 
@@ -847,10 +847,10 @@ internal func ela_stream_open_channel(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_close_channel")
-internal func ela_stream_close_channel(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_close_channel")
+internal func IOEX_stream_close_channel(_ session: OpaquePointer!,
                                        _ stream: Int32,
                                        _ channel: Int32) -> Int32
 
@@ -874,10 +874,10 @@ internal func ela_stream_close_channel(_ session: OpaquePointer!,
  * @return
  *      Sent bytes on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_write_channel")
-internal func ela_stream_write_channel(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_write_channel")
+internal func IOEX_stream_write_channel(_ session: OpaquePointer!,
                                        _ stream: Int32,
                                        _ channel: Int32,
                                        _ data: UnsafeRawPointer!,
@@ -899,10 +899,10 @@ internal func ela_stream_write_channel(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_pend_channel")
-internal func ela_stream_pend_channel(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_pend_channel")
+internal func IOEX_stream_pend_channel(_ session: OpaquePointer!,
                                       _ stream: Int32,
                                       _ channel: Int32) -> Int32
 /**
@@ -921,10 +921,10 @@ internal func ela_stream_pend_channel(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_resume_channel")
-internal func ela_stream_resume_channel(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_resume_channel")
+internal func IOEX_stream_resume_channel(_ session: OpaquePointer!,
                                         _ stream: Int32,
                                         _ channel: Int32) -> Int32
 
@@ -951,10 +951,10 @@ internal func ela_stream_resume_channel(_ session: OpaquePointer!,
  * @return
  *      Portforwarding ID on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_open_port_forwarding")
-internal func ela_stream_open_port_forwarding(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_open_port_forwarding")
+internal func IOEX_stream_open_port_forwarding(_ session: OpaquePointer!,
                                               _ stream: Int32,
                                               _ service: UnsafePointer<Int8>!,
                                               _ protocol: CPortForwardingProtocol,
@@ -977,10 +977,10 @@ internal func ela_stream_open_port_forwarding(_ session: OpaquePointer!,
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
- *      ela_get_error().
+ *      IOEX_get_error().
  */
-@_silgen_name("ela_stream_close_port_forwarding")
-internal func ela_stream_close_port_forwarding(_ session: OpaquePointer!,
+@_silgen_name("IOEX_stream_close_port_forwarding")
+internal func IOEX_stream_close_port_forwarding(_ session: OpaquePointer!,
                                                _ stream: Int32,
                                                _ portforwarding: Int32) -> Int32
 

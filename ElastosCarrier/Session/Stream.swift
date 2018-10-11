@@ -62,7 +62,7 @@ public class CarrierStream: NSObject {
     
     public func getTransportInfo() throws -> CarrierTransportInfo {
         var cinfo = CTransportInfo()
-        let result = ela_stream_get_transport_info(csession,
+        let result = IOEX_stream_get_transport_info(csession,
                                                    Int32(streamId),
                                                    &cinfo)
 
@@ -94,7 +94,7 @@ public class CarrierStream: NSObject {
     public func writeData(_ data: Data) throws -> NSNumber {
 
         let bytes = data.withUnsafeBytes() { (ptr) -> Int in
-            return ela_stream_write(csession, Int32(streamId), ptr, data.count)
+            return IOEX_stream_write(csession, Int32(streamId), ptr, data.count)
         }
 
         guard bytes > 0 else {
@@ -122,7 +122,7 @@ public class CarrierStream: NSObject {
         throws -> NSNumber {
 
         let channel = cookie.withCString() { (ptr) -> Int32 in
-            return ela_stream_open_channel(csession, Int32(streamId), ptr)
+            return IOEX_stream_open_channel(csession, Int32(streamId), ptr)
         }
 
         guard channel >= 0 else {
@@ -149,7 +149,7 @@ public class CarrierStream: NSObject {
             throw CarrierError.InvalidArgument
         }
 
-        let result = ela_stream_close_channel(csession, Int32(streamId),
+        let result = IOEX_stream_close_channel(csession, Int32(streamId),
                                               Int32(channel))
 
         guard result >= 0 else {
@@ -178,7 +178,7 @@ public class CarrierStream: NSObject {
         }
 
         let bytes = data.withUnsafeBytes() { (cdata) -> Int in
-            return ela_stream_write_channel(csession, Int32(streamId),
+            return IOEX_stream_write_channel(csession, Int32(streamId),
                                             Int32(channel),
                                             cdata, data.count)
         }
@@ -205,7 +205,7 @@ public class CarrierStream: NSObject {
             throw CarrierError.InvalidArgument
         }
 
-        let result = ela_stream_pend_channel(csession, Int32(streamId),
+        let result = IOEX_stream_pend_channel(csession, Int32(streamId),
                                              Int32(channel))
 
         guard result >= 0 else {
@@ -228,7 +228,7 @@ public class CarrierStream: NSObject {
             throw CarrierError.InvalidArgument
         }
 
-        let result = ela_stream_resume_channel(csession, Int32(streamId),
+        let result = IOEX_stream_resume_channel(csession, Int32(streamId),
                                                Int32(channel))
 
         guard result >= 0 else {
@@ -261,7 +261,7 @@ public class CarrierStream: NSObject {
         let pfId = service.withCString() { (cservice) -> Int32 in
             return host.withCString() { (chost) in
                 return port.withCString() { (cport) in
-                    return ela_stream_open_port_forwarding(csession,
+                    return IOEX_stream_open_port_forwarding(csession,
                                Int32(streamId), cservice, cproto, chost, cport)
                 }
             }
@@ -293,7 +293,7 @@ public class CarrierStream: NSObject {
             throw CarrierError.InvalidArgument
         }
 
-        let result = ela_stream_close_port_forwarding(csession,
+        let result = IOEX_stream_close_port_forwarding(csession,
                          Int32(streamId), Int32(portForwarding))
 
         guard result >= 0 else {

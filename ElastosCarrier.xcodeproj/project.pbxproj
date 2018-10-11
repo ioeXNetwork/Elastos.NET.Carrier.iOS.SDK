@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		819E3FD721644EE600C710BB /* IOEX_session.h in Headers */ = {isa = PBXBuildFile; fileRef = 819E3FD521644EE500C710BB /* IOEX_session.h */; };
+		819E3FD821644EE600C710BB /* IOEX_carrier.h in Headers */ = {isa = PBXBuildFile; fileRef = 819E3FD621644EE500C710BB /* IOEX_carrier.h */; };
+		819E3FDC21644EF500C710BB /* libIOEXsession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E3FD921644EF500C710BB /* libIOEXsession.a */; };
+		819E3FDD21644EF500C710BB /* libIOEXcarrier.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E3FDA21644EF500C710BB /* libIOEXcarrier.a */; };
+		819E3FDE21644EF500C710BB /* libIOEXcommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E3FDB21644EF500C710BB /* libIOEXcommon.a */; };
+		819E3FE021648D0500C710BB /* FileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E3FDF21648D0500C710BB /* FileInfo.swift */; };
 		A360378020161AAF001A666E /* BootstrapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A360377F20161AAF001A666E /* BootstrapNode.swift */; };
 		A3B497C12003736300420421 /* ElastosCarrier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B497B72003736200420421 /* ElastosCarrier.framework */; };
 		A3B497C62003736300420421 /* ElastosCarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497C52003736300420421 /* ElastosCarrierTests.swift */; };
@@ -39,8 +45,6 @@
 		A3B498142003B3A500420421 /* NetworkTopology.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B498072003B3A400420421 /* NetworkTopology.swift */; };
 		A3B498172003B3AF00420421 /* CarrierError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B498162003B3AE00420421 /* CarrierError.swift */; };
 		A3B4981920045F0A00420421 /* PresenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B4981820045F0A00420421 /* PresenceStatus.swift */; };
-		A3B498442005BE7600420421 /* libelasession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B498392005BE7600420421 /* libelasession.a */; };
-		A3B498452005BE7600420421 /* libelacommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B4983A2005BE7600420421 /* libelacommon.a */; };
 		A3B498462005BE7600420421 /* libpjlib-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B4983B2005BE7600420421 /* libpjlib-util.a */; };
 		A3B498472005BE7600420421 /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B4983C2005BE7600420421 /* libsodium.a */; };
 		A3B498482005BE7600420421 /* libpj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B4983D2005BE7600420421 /* libpj.a */; };
@@ -49,7 +53,6 @@
 		A3B4984B2005BE7600420421 /* libflatcc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B498402005BE7600420421 /* libflatcc.a */; };
 		A3B4984C2005BE7600420421 /* libpjnath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B498412005BE7600420421 /* libpjnath.a */; };
 		A3B4984D2005BE7600420421 /* libtoxcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B498422005BE7600420421 /* libtoxcore.a */; };
-		A3B4984E2005BE7600420421 /* libelacarrier.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B498432005BE7600420421 /* libelacarrier.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		819E3FD521644EE500C710BB /* IOEX_session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOEX_session.h; path = NativeDistributions/include/IOEX_session.h; sourceTree = "<group>"; };
+		819E3FD621644EE500C710BB /* IOEX_carrier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOEX_carrier.h; path = NativeDistributions/include/IOEX_carrier.h; sourceTree = "<group>"; };
+		819E3FD921644EF500C710BB /* libIOEXsession.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIOEXsession.a; path = NativeDistributions/libs/libIOEXsession.a; sourceTree = "<group>"; };
+		819E3FDA21644EF500C710BB /* libIOEXcarrier.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIOEXcarrier.a; path = NativeDistributions/libs/libIOEXcarrier.a; sourceTree = "<group>"; };
+		819E3FDB21644EF500C710BB /* libIOEXcommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIOEXcommon.a; path = NativeDistributions/libs/libIOEXcommon.a; sourceTree = "<group>"; };
+		819E3FDF21648D0500C710BB /* FileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileInfo.swift; path = Carrier/FileInfo.swift; sourceTree = "<group>"; };
 		A360377F20161AAF001A666E /* BootstrapNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BootstrapNode.swift; path = Carrier/BootstrapNode.swift; sourceTree = "<group>"; };
 		A3B497B72003736200420421 /* ElastosCarrier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ElastosCarrier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B497BA2003736300420421 /* ElastosCarrier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElastosCarrier.h; sourceTree = "<group>"; };
@@ -116,9 +125,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3B498442005BE7600420421 /* libelasession.a in Frameworks */,
-				A3B498452005BE7600420421 /* libelacommon.a in Frameworks */,
-				A3B4984E2005BE7600420421 /* libelacarrier.a in Frameworks */,
+				819E3FDC21644EF500C710BB /* libIOEXsession.a in Frameworks */,
+				819E3FDE21644EF500C710BB /* libIOEXcommon.a in Frameworks */,
+				819E3FDD21644EF500C710BB /* libIOEXcarrier.a in Frameworks */,
 				A3B498462005BE7600420421 /* libpjlib-util.a in Frameworks */,
 				A3B498472005BE7600420421 /* libsodium.a in Frameworks */,
 				A3B498482005BE7600420421 /* libpj.a in Frameworks */,
@@ -206,6 +215,8 @@
 				A3B497F22003779300420421 /* CSession.swift */,
 				A3B497D62003759400420421 /* ela_carrier.h */,
 				A3B497D52003759400420421 /* ela_session.h */,
+				819E3FD621644EE500C710BB /* IOEX_carrier.h */,
+				819E3FD521644EE500C710BB /* IOEX_session.h */,
 			);
 			name = include;
 			sourceTree = "<group>";
@@ -220,6 +231,7 @@
 				A3B497DF2003763500420421 /* FriendInfo.swift */,
 				A3B497DE2003763500420421 /* LogLevel.swift */,
 				A3B497E12003763500420421 /* UserInfo.swift */,
+				819E3FDF21648D0500C710BB /* FileInfo.swift */,
 				A3B497E72003763500420421 /* Carrier.swift */,
 				A3B497E62003763500420421 /* CarrierDelegate.swift */,
 				A3B497E42003763500420421 /* CarrierOptions.swift */,
@@ -266,6 +278,9 @@
 		A3B498382005BE7500420421 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				819E3FDA21644EF500C710BB /* libIOEXcarrier.a */,
+				819E3FDB21644EF500C710BB /* libIOEXcommon.a */,
+				819E3FD921644EF500C710BB /* libIOEXsession.a */,
 				A3B498432005BE7600420421 /* libelacarrier.a */,
 				A3B4983A2005BE7600420421 /* libelacommon.a */,
 				A3B498392005BE7600420421 /* libelasession.a */,
@@ -288,6 +303,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				819E3FD721644EE600C710BB /* IOEX_session.h in Headers */,
+				819E3FD821644EE600C710BB /* IOEX_carrier.h in Headers */,
 				A3B497D72003759400420421 /* ela_session.h in Headers */,
 				A3B497C82003736300420421 /* ElastosCarrier.h in Headers */,
 				A3B497D82003759400420421 /* ela_carrier.h in Headers */,
@@ -411,6 +428,7 @@
 				A3B497F52003779300420421 /* CCarrier.swift in Sources */,
 				A3B498142003B3A500420421 /* NetworkTopology.swift in Sources */,
 				A3B497F02003763600420421 /* CarrierDelegate.swift in Sources */,
+				819E3FE021648D0500C710BB /* FileInfo.swift in Sources */,
 				A3B497FA2003B39800420421 /* Log.swift in Sources */,
 				A3B497F12003763600420421 /* Carrier.swift in Sources */,
 				A3B497E92003763600420421 /* FriendInfo.swift in Sources */,

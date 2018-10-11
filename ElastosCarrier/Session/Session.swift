@@ -181,7 +181,7 @@ public class CarrierSession: NSObject {
         if !didClose {
             Log.d(TAG(), "Begin to close native session instance ...")
 
-            ela_session_close(csession)
+            IOEX_session_close(csession)
             didClose = true
 
             Log.d(TAG(), "Native session instance closed nicely")
@@ -234,7 +234,7 @@ public class CarrierSession: NSObject {
         let wcontext : [AnyObject?] = [self, handler as AnyObject]
         let manager = Unmanaged.passRetained(wcontext as AnyObject);
         let cctxt = manager.toOpaque()
-        let result = ela_session_request(csession, cb, cctxt)
+        let result = IOEX_session_request(csession, cb, cctxt)
 
         guard result >= 0 else {
             manager.release()
@@ -284,7 +284,7 @@ public class CarrierSession: NSObject {
             }
         }
 
-        let result = ela_session_reply_request(csession, Int32(status), creason)
+        let result = IOEX_session_reply_request(csession, Int32(status), creason)
         guard result >= 0 else {
             let errno = getErrorCode()
             Log.i(TAG(), "Reply session invite request error: 0x%X", errno)
@@ -313,7 +313,7 @@ public class CarrierSession: NSObject {
         Log.d(TAG(), "Begin to start session with remote sdp: \(sdp) ...")
 
         let result = sdp.withCString() { (ptr) -> Int32 in
-            return ela_session_start(csession, ptr, sdp.utf8CString.count)
+            return IOEX_session_start(csession, ptr, sdp.utf8CString.count)
         }
 
         guard result >= 0 else {
@@ -368,7 +368,7 @@ public class CarrierSession: NSObject {
         Log.d(TAG(), "Begin to add a new stream with type \(type)")
 
         let cctxt = Unmanaged.passUnretained(stream).toOpaque()
-        let streamId = ela_session_add_stream(csession, ctype, options.rawValue,
+        let streamId = IOEX_session_add_stream(csession, ctype, options.rawValue,
                                               &callbacks, cctxt)
 
         guard streamId >= 0 else {
@@ -397,7 +397,7 @@ public class CarrierSession: NSObject {
 
         Log.d(TAG(), "Begin to remove stream \(streamId) from session.")
 
-        let result = ela_session_remove_stream(csession, Int32(streamId))
+        let result = IOEX_session_remove_stream(csession, Int32(streamId))
 
         guard result >= 0 else {
             let errno: Int = getErrorCode()
@@ -432,7 +432,7 @@ public class CarrierSession: NSObject {
         let result = serviceName.withCString() { (cservice) -> Int32 in
             return host.withCString() { (chost) -> Int32 in
                 return port.withCString() { (cport) -> Int32 in
-                    return ela_session_add_service(csession, cservice,
+                    return IOEX_session_add_service(csession, cservice,
                                                    cproto, chost, cport)
                 }
             }
@@ -457,7 +457,7 @@ public class CarrierSession: NSObject {
     public func removeService(serviceName: String) {
 
         serviceName.withCString() { (ptr) in
-            ela_session_remove_service(csession, ptr)
+            IOEX_session_remove_service(csession, ptr)
         }
 
         Log.d(TAG(), "Service \(serviceName) was removed from session.")
