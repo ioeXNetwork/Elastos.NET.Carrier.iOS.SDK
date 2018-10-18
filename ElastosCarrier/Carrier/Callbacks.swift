@@ -231,22 +231,97 @@ private func onReceiveFileAccepted(_: OpaquePointer?,
     handler.didReceiveFileAccepted(carrier: ca, friendId: friend_id, fileindex: Int32(fileindex))
 }
 
-///void (*file_chunk_request)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,const char *filename, const uint64_t position, const size_t length,void *context);
-private func onReceiveFileChunkRequest(_: OpaquePointer?,
+///void (*file_rejected)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, void *context);
+private func onReceiveFileRejected(_: OpaquePointer?,
+                                   _ friendid: UnsafePointer<Int8>?,
+                                   _ fileindex: UInt32,
+                                   _ context: UnsafeMutableRawPointer?){
+    
+    let ca = getCarrier(context!)
+    let handler = ca.delegate!
+    
+    let friend_id = String(cString: friendid!)
+    
+    handler.didReceiveFileRejected(carrier: ca, friend_id, fileindex: Int32(fileindex))
+}
+
+///void (*file_paused)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
+private func onReceiveFilePaused(_: OpaquePointer?,
+                                   _ friendid: UnsafePointer<Int8>?,
+                                   _ fileindex: UInt32,
+                                   _ context: UnsafeMutableRawPointer?){
+    
+    let ca = getCarrier(context!)
+    let handler = ca.delegate!
+    
+    let friend_id = String(cString: friendid!)
+    
+    handler.didReceiveFilePaused(carrier: ca, friend_id, fileindex: Int32(fileindex))
+}
+
+///void (*file_resumed)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
+private func onReceiveFileResumed(_: OpaquePointer?,
+                                   _ friendid: UnsafePointer<Int8>?,
+                                   _ fileindex: UInt32,
+                                   _ context: UnsafeMutableRawPointer?){
+    
+    let ca = getCarrier(context!)
+    let handler = ca.delegate!
+    
+    let friend_id = String(cString: friendid!)
+    
+    handler.didReceiveFileResumed(carrier: ca, friend_id, fileindex: Int32(fileindex))
+}
+
+///void (*file_canceled)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
+private func onReceiveFileCanceled(_: OpaquePointer?,
+                                   _ friendid: UnsafePointer<Int8>?,
+                                   _ fileindex: UInt32,
+                                   _ context: UnsafeMutableRawPointer?){
+    
+    let ca = getCarrier(context!)
+    let handler = ca.delegate!
+    
+    let friend_id = String(cString: friendid!)
+    
+    handler.didReceiveFileCanceled(carrier: ca, friend_id, fileindex: Int32(fileindex))
+}
+
+///void (*file_chunk_send_error)(IOEXCarrier *carrier, int errcode, const char *friendid, const uint32_t fileindex,const char *fullpath, const uint64_t position, const size_t length,void *context);
+private func onReceiveFileChunkSendError(_: OpaquePointer?,
+                                         errcode:Int,
+                                         _ friendid: UnsafePointer<Int8>?,
+                                         _ fileindex: UInt32,
+                                         fullpath: UnsafePointer<Int8>?,
+                                         position: UInt64,
+                                         length: Int,
+                                         _ context: UnsafeMutableRawPointer?){
+    
+    let carrier = getCarrier(context!)
+    let handler = carrier.delegate!
+    
+    let friend_id = String(cString: friendid!)
+    let full_path = String(cString: fullpath!)
+    
+    handler.didReceiveFileChunkSendError(carrier: carrier, errorCode: errcode, friendId: friend_id, fileindex: Int32(fileindex), fullpath: full_path, position: Int64(position), length: length)
+}
+
+///void (*file_chunk_send)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, const char *fullpath, const uint64_t position, const size_t length,void *context);
+private func onReceiveFileChunkSend(_: OpaquePointer?,
                                    _ friendid: UnsafePointer<Int8>?,
                                    _ fileindex: UInt32,
                                    filename: UnsafePointer<Int8>?,
                                    position: UInt64,
                                    length: Int,
                                    _ context: UnsafeMutableRawPointer?){
-    
+
     let carrier = getCarrier(context!)
     let handler = carrier.delegate!
-    
+
     let friend_id = String(cString: friendid!)
     let file_name = String(cString: filename!)
-    
-    handler.didReceiveFileChunkRequest(carrier: carrier, friendId: friend_id, fileindex: Int32(fileindex), fileName: file_name, position: Int64(position), length: length)
+
+    handler.didReceiveFileChunkSend(carrier: carrier, friendId: friend_id, fileindex: Int32(fileindex), fileName: file_name, position: Int64(position), length: length)
 }
 
 ///void (*file_chunk_receive)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,const char *filename, const uint64_t position, const size_t length,void *context)
@@ -267,19 +342,6 @@ private func onReceiveFileChunkReceive(_: OpaquePointer?,
     handler.didReceiveFileChunkReceive(carrier: carrier, friendId: friend_id, fileindex: Int32(fileindex), fileName: file_name, position: Int64(position), length: length)
 }
 
-//private func onTSFileReceivedComplete(_: OpaquePointer?,
-//                                      cfilename: UnsafePointer<Int8>?,
-//                                      crealfilename: UnsafePointer<Int8>?,
-//                            cctxt: UnsafeMutableRawPointer?) {
-//    let carrier = getCarrier(cctxt!)
-//    let handler = carrier.delegate!
-//
-//    let fname = String(cString: cfilename!)
-//    let rfname = String(cString: crealfilename!)
-//
-//    handler.didTSFileReceivedComplete(_FileName: fname, _RealFileName: rfname)
-//}
-
 internal func getNativeHandlers() -> CCallbacks {
 
     var callbacks = CCallbacks()
@@ -299,7 +361,11 @@ internal func getNativeHandlers() -> CCallbacks {
     callbacks.friend_invite = onFriendInvite
     callbacks.file_request = onReceiveFileRequest
     callbacks.file_accepted = onReceiveFileAccepted
-    callbacks.file_chunk_request = onReceiveFileChunkRequest
+    callbacks.file_rejected = onReceiveFileRejected
+    callbacks.file_paused = onReceiveFilePaused
+    callbacks.file_resumed = onReceiveFileResumed
+    callbacks.file_chunk_send = onReceiveFileChunkSend
+    callbacks.file_chunk_send_error = onReceiveFileChunkSendError
     callbacks.file_chunk_receive = onReceiveFileChunkReceive
 
     return callbacks

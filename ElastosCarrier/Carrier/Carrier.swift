@@ -767,32 +767,48 @@ public class Carrier: NSObject {
         return IOEX_get_files(ccarrier, cb, nil)
     }
     
-    //@objc(TSFile_Init:)
-//    public func TSFile_Init(carrier: Carrier, filePath:String) -> Int32 {
-//
-//        let cb: CReceivedComplete = {
-//            fileName,realFileName  in
-//            print("filename = \(String.init(cString: fileName!)), realFileNmae = \(String.init(cString: realFileName!))")
-////            delegate?.didTSFileReceivedComplete(_FileName: String.init(cString: fileName!), _RealFileName: String.init(cString: realFileName!) )
-////            self.receivedCompleteEvent(fname: String.init(cString: fileName!), ofname: String.init(cString: realFileName!))
-//        }
-//
-//        IOEX_TSFile_ReceivedComplete_Callback(carrier: ccarrier, cb)
-//        return IOEX_TSFile_Init(ccarrier, path: filePath)
-//    }
+    ///internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
+    ///                                  friendid: UnsafePointer<Int8>!,
+    ///                                  _ fileindex: UnsafePointer<Int8>!,
+    ///                                  _ position: UnsafePointer<Int8>!) -> Int32
+    public func sendFileSeek(carrier: Carrier, friendid:String, fileindex:String, position:String) -> Int32 {
+        
+        return IOEX_send_file_seek(ccarrier, friendid:friendid, fileindex,position)
+    }
     
-    //@objc(TSFile_Request:)
-//    public func TSFile_Request(carrier: Carrier,
-//                               address:String,
-//                               filename:String,
-//                               start_byte:Int) -> Int32 {
-//        return IOEX_TSFile_Request(ccarrier, address: address, filename: filename, start_byte: start_byte)
-//    }
+    ///@_silgen_name("IOEX_send_file_reject")
+    ///internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
+    ///                                    friendid: UnsafePointer<Int8>!,
+    ///                                    _ fileindex: UnsafePointer<Int8>!) -> Int32
+    public func sendFileReject(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
+        
+        return IOEX_send_file_reject(ccarrier, friendid:friendid, fileindex)
+    }
     
-
+    ///@_silgen_name("IOEX_send_file_pause")
+    ///internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
+    ///                                   friendid: UnsafePointer<Int8>!,
+    ///                                  _ fileindex: UnsafePointer<Int8>!) -> Int32
+    public func sendFilePause(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
+        
+        return IOEX_send_file_pause(ccarrier, friendid:friendid, fileindex)
+    }
     
-//    func TSFile_ReceivedComplete_Callback(carrier: Carrier, callbackf:@escaping CReceivedComplete ) -> Int32 {
-//        return IOEX_TSFile_ReceivedComplete_Callback(carrier: ccarrier, callbackf)
-//    }
+    ///@_silgen_name("IOEX_send_file_resume")
+    ///internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
+    ///                                    friendid: UnsafePointer<Int8>!,
+    ///                                    _ fileindex: UnsafePointer<Int8>!) -> Int32
+    public func sendFileResume(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
+        
+        return IOEX_send_file_resume(ccarrier, friendid:friendid, fileindex)
+    }
     
+    ///@_silgen_name("IOEX_send_file_cancel")
+    ///internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
+    ///                                    friendid: UnsafePointer<Int8>!,
+    ///
+    public func sendFileCancel(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
+        
+        return IOEX_send_file_cancel(ccarrier, friendid:friendid, fileindex)
+    }
 }
