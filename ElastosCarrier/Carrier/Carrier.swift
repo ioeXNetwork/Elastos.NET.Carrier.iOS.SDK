@@ -729,23 +729,41 @@ public class Carrier: NSObject {
     /**
      KJ Test
      */
+    ///    internal func IOEX_send_file_query(_ carrier: OpaquePointer!,
+    ///                                       _ friendid: UnsafePointer<Int8>!,
+    ///                                       _ filename: UnsafePointer<Int8>!,
+    ///                                       _ message: UnsafePointer<Int8>!) -> Int32
+    public func SendFileQuery(carrier:Carrier, friendid:String, filename:String ,messeage:String ) -> Int32 {
     
-    ///internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
-    ///                                     _ friendid: UnsafePointer<Int8>!,
-    ///                                     _ filename: UnsafePointer<Int8>!) -> Int32
-    public func sendFileRequest(carrier: Carrier, friendid:String, filename:String) -> Int32 {
-        
-        return IOEX_send_file_request(ccarrier, friendid, filename)
+        return IOEX_send_file_query(ccarrier, friendid, filename, messeage)
     }
     
-    ///internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
-    ///                                    _ friendid: UnsafePointer<Int8>!,
-    ///                                    _ fileindex: UnsafePointer<Int8>!,
-    ///                                    _ filename: UnsafePointer<Int8>!,
-    ///                                    _ filepath: UnsafePointer<Int8>!) -> Int32
-    public func sendFileAccept(carrier: Carrier, friendid:String, fileindex:String, filename:String, filepath:String) -> Int32 {
+    
+    ///    internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
+    ///                                         fileid: UnsafePointer<Int8>!,
+    ///                                         id_len: Int,
+    ///                                         friendid: UnsafePointer<Int8>!,
+    ///                                         filename: UnsafePointer<Int8>!) -> Int32
+    public func sendFileRequest(carrier: Carrier, friendid:String, filename:String) -> Int32 {
+        let len = Carrier.MAX_ADDRESS_LEN + 1
+        var data = Data(count: len);
         
-        return IOEX_send_file_accept(ccarrier, friendid, fileindex,filename,filepath)
+        let fileId = data.withUnsafeMutableBytes() {
+            (ptr: UnsafeMutablePointer<Int8>) -> Int in
+            IOEX_send_file_request(ccarrier, fileid: ptr, id_len: len, friendid: friendid, filename: filename)
+            return 0;
+        }
+        print("==fileId===")
+        return 0;
+    }
+    
+    ///    internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
+    ///                                        _ fileid: UnsafePointer<Int8>!,
+    ///                                        _ filename: UnsafePointer<Int8>!,
+    ///                                        _ filepath: UnsafePointer<Int8>!) -> Int32
+    public func sendFileAccept(carrier: Carrier, fileid:String, filename:String, filepath:String) -> Int32 {
+        
+        return IOEX_send_file_accept(ccarrier, fileid,filename,filepath)
     }
     
     ///internal typealias CFilesIterateCallback = @convention(c)( UnsafeRawPointer?, UnsafeRawPointer?, UnsafeMutableRawPointer?) -> Bool
@@ -755,60 +773,112 @@ public class Carrier: NSObject {
     ///                             _ context: UnsafeMutableRawPointer!) -> Int32
     ///IOEXFilesIterateCallback(int direction, const IOEXFileInfo *info, void *context);
     
-    public func getFiles(carrier: Carrier, filename:String) -> Int32 {
-        let cb: CFilesIterateCallback = {
-            direction,fileInfo,context   in
-            print("===direction = \(String(describing: direction))===")
-            //            delegate?.didTSFileReceivedComplete(_FileName: String.init(cString: fileName!), _RealFileName: String.init(cString: realFileName!) )
-            //            self.receivedCompleteEvent(fname: String.init(cString: fileName!), ofname: String.init(cString: realFileName!))
-            return true
+//    public func getFiles(carrier: Carrier, filename:String) -> Int32 {
+//        let cb: CFilesIterateCallback = {
+//            direction,fileInfo,context   in
+//            print("===direction = \(String(describing: direction))===")
+//            //            delegate?.didTSFileReceivedComplete(_FileName: String.init(cString: fileName!), _RealFileName: String.init(cString: realFileName!) )
+//            //            self.receivedCompleteEvent(fname: String.init(cString: fileName!), ofname: String.init(cString: realFileName!))
+//            return true
+//        }
+//
+//        return IOEX_get_files(ccarrier, cb, nil)
+//    }
+    
+    ///    @_silgen_name("IOEX_send_file_seek")
+    ///    internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
+    ///                                      fileid: UnsafePointer<Int8>!,
+    ///                                      _ position: UnsafePointer<Int8>!) -> Int32
+    public func sendFileSeek(carrier: Carrier, fileid:String, position:String) -> Int32 {
+        
+        return IOEX_send_file_seek(ccarrier, fileid: fileid ,position)
+    }
+    
+    ///    internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
+    ///                                        fileid: UnsafePointer<Int8>!) -> Int32
+    public func sendFileReject(carrier: Carrier, fileid:String) -> Int32 {
+        
+        return IOEX_send_file_reject(ccarrier, fileid: fileid)
+    }
+    
+    ///    internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
+    ///                                       fileid: UnsafePointer<Int8>!) -> Int32
+    public func sendFilePause(carrier: Carrier, fileid:String) -> Int32 {
+        
+        return IOEX_send_file_pause(ccarrier, fileid: fileid)
+    }
+    
+    ///    internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
+    ///                                        fileid: UnsafePointer<Int8>!) -> Int32
+    public func sendFileResume(carrier: Carrier, fileid:String) -> Int32 {
+        
+        return IOEX_send_file_resume(ccarrier, fileid:fileid)
+    }
+    
+    ///    internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
+    ///                                        fileid: UnsafePointer<Int8>!) -> Int32
+    public func sendFileCancel(carrier: Carrier, fileid:String) -> Int32 {
+        
+        return IOEX_send_file_cancel(ccarrier,  fileid: fileid)
+    }
+    
+    ///    internal func IOEX_get_files(_ carrier: OpaquePointer!,
+    ///                                 _ callback: CFilesIterateCallback!,
+    ///                                 _ context: UnsafeMutableRawPointer!) -> Int32
+//    public func getFiles(carrier: Carrier, fileid:String) -> Int32 {
+//
+//        let cb: CFilesIterateCallback = { (cinfo, ctxt) in
+//            if cinfo != nil {
+//                let cFriendInfo = cinfo!.assumingMemoryBound(to: CFriendInfo.self).pointee
+//                let info = convertCFriendInfoToCarrierFriendInfo(cFriendInfo)
+//                ctxt!.assumingMemoryBound(to: [CarrierFriendInfo].self)
+//                    .pointee.append(info)
+//            }
+//            return true
+//        }
+//
+    //        var friends = [CarrierFriendInfo]()
+    //        let result = withUnsafeMutablePointer(to: &friends) { (ptr) -> Int32 in
+    //            let cctxt = UnsafeMutableRawPointer(ptr)
+    //            return IOEX_get_friends(ccarrier, cb, cctxt)
+    //        }
+//    }
+    
+    
+    ///    internal func IOEX_get_file_info(_ carrier: OpaquePointer!,
+    ///                                     _ fileinfo: CFileInfo!,
+    ///                                     _ fileid: UnsafePointer<Int8>!) -> Int32
+    
+    public func getFileInfo(carrier: Carrier, fileid:String) throws -> FileInfo {
+        
+        var cfileinfo = CFileInfo()
+        let result = fileid.withCString { (cfileid) -> Int32 in
+            return IOEX_get_file_info(ccarrier, &cfileinfo, cfileid)
         }
         
-        return IOEX_get_files(ccarrier, cb, nil)
+        guard result >= 0 else {
+            let errno: Int = getErrorCode()
+            Log.e(Carrier.TAG, "Get infos of file \(fileid) error: 0x%X", errno)
+            throw CarrierError.InternalError(errno: errno)
+        }
+        
+        let info = convertCFileInfoToFileInfo(cfileinfo)
+        Log.d(Carrier.TAG, "The infos of file \(fileid): \(info)")
+        return info
     }
     
-    ///internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
-    ///                                  friendid: UnsafePointer<Int8>!,
-    ///                                  _ fileindex: UnsafePointer<Int8>!,
-    ///                                  _ position: UnsafePointer<Int8>!) -> Int32
-    public func sendFileSeek(carrier: Carrier, friendid:String, fileindex:String, position:String) -> Int32 {
-        
-        return IOEX_send_file_seek(ccarrier, friendid:friendid, fileindex,position)
-    }
-    
-    ///@_silgen_name("IOEX_send_file_reject")
-    ///internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
-    ///                                    friendid: UnsafePointer<Int8>!,
-    ///                                    _ fileindex: UnsafePointer<Int8>!) -> Int32
-    public func sendFileReject(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
-        
-        return IOEX_send_file_reject(ccarrier, friendid:friendid, fileindex)
-    }
-    
-    ///@_silgen_name("IOEX_send_file_pause")
-    ///internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
-    ///                                   friendid: UnsafePointer<Int8>!,
-    ///                                  _ fileindex: UnsafePointer<Int8>!) -> Int32
-    public func sendFilePause(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
-        
-        return IOEX_send_file_pause(ccarrier, friendid:friendid, fileindex)
-    }
-    
-    ///@_silgen_name("IOEX_send_file_resume")
-    ///internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
-    ///                                    friendid: UnsafePointer<Int8>!,
-    ///                                    _ fileindex: UnsafePointer<Int8>!) -> Int32
-    public func sendFileResume(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
-        
-        return IOEX_send_file_resume(ccarrier, friendid:friendid, fileindex)
-    }
-    
-    ///@_silgen_name("IOEX_send_file_cancel")
-    ///internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
-    ///                                    friendid: UnsafePointer<Int8>!,
-    ///
-    public func sendFileCancel(carrier: Carrier, friendid:String, fileindex:String) -> Int32 {
-        
-        return IOEX_send_file_cancel(ccarrier, friendid:friendid, fileindex)
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

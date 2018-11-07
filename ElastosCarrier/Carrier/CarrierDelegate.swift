@@ -193,80 +193,100 @@ public protocol CarrierDelegate {
      KJ TEST
      */
     
+    ///IOEXCarrier *carrier, const char *friendid, const char *filename, const char *message, void *context)
+    @objc(carrier:didReceiveFileQueried:withFileIndex:withFileName:)
+    func didReceiveFileQueried(carrier: Carrier,
+                               _ friendId: String,
+                               _ fileName: String,
+                                  message: String)
+    
+    
     ///file_request callback
-    ///IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, const char *filename, uint64_t filesize, void *context
+    ///IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t filesize, void *context
     @objc(carrier:didReceiveFileRequest:withFileIndex:withFileName:withFileSize:)
     func didReceiveFileRequest(carrier: Carrier,
+                                fileid:String,
                             _ friendId: String,
-                             fileindex: Int32,
                             _ fileName: String,
-                              filesize: Int64)
+                              filesize: Int)
     
-    ///var file_accepted: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
-    ///void (*file_accepted)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
-    @objc(carrier:didReceiveFileAccepted:withFileIndex:)
+    ///IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, size_t filesize, void *context
+    @objc(carrier:didReceiveFileAccepted:withFileIndex:withFilepath:withSize:)
     func didReceiveFileAccepted(carrier: Carrier,
+                                 fileid: String,
                                friendId: String,
-                               fileindex: Int32)
+                               fullpath: String,
+                                 size_t: Int)
     
-    ///void (*file_rejected)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, void *context);
-    ///var file_rejected: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    ///                      IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context)
     @objc(carrier:didReceiveFileRejected:withFriendId:)
     func didReceiveFileRejected(carrier: Carrier,
-                               _ friendId: String,
-                               fileindex: Int32)
+                               _ fileid: String,
+                               friendid: String	)
 
     ///void (*file_paused)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
-    ///var file_paused: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    ///                    IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context)
     @objc(carrier:didReceiveFilePaused:withFriendId:)
     func didReceiveFilePaused(carrier: Carrier,
-                                _ friendId: String,
-                                fileindex: Int32)
+                              _ fileid: String,
+                              friendid: String    )
     
-    ///void (*file_resumed)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
-    ///var file_resumed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    ///void (*file_resumed)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
     @objc(carrier:didReceiveFileResumed:withFriendId:)
     func didReceiveFileResumed(carrier: Carrier,
-                                _ friendId: String,
-                                fileindex: Int32)
+                               _ fileid: String,
+                               friendid: String    )
     
-    ///void (*file_canceled)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
-    ///var file_canceled: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    ///void (*file_canceled)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
     @objc(carrier:didReceiveFileCanceled:withFriendId:)
     func didReceiveFileCanceled(carrier: Carrier,
-                                _ friendId: String,
-                                fileindex: Int32)
+                                _ fileid: String,
+                                friendid: String    )
     
-    ///var file_chunk_send: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
-    ///void (*file_chunk_send)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,const char *filename, const uint64_t position, const size_t length,void *context);
-    @objc(carrier:didReceiveFileChunkSend:withFileIndex:withFileName:withPosition:withLength:)
-    func didReceiveFileChunkSend(carrier: Carrier,
-                                friendId: String,
-                                fileindex: Int32,
-                                fileName: String,
-                                 position: Int64,
-                                length: Int)
-    
-    ///var file_chunk_send_error: (@convention(c)(OpaquePointer?, Int, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
-    ///void (*file_chunk_send_error)(IOEXCarrier *carrier, int errcode, const char *friendid, const uint32_t fileindex,const char *fullpath, const uint64_t position, const size_t length, void *context);
-    @objc(carrier:didReceiveFileChunkSendError:withFRIENDId:withFileIndex:withFileName:withPosition:withLength:)
-    func didReceiveFileChunkSendError(carrier: Carrier,
-                                    errorCode: Int,
-                                     friendId: String,
-                                    fileindex: Int32,
-                                     fullpath: String,
-                                     position: Int64,
-                                       length: Int)
-    
-    ///var file_chunk_receive: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
-    ///void (*file_chunk_receive)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,const char *filename, const uint64_t position, const size_t length,void *context)
-    @objc(carrier:didReceiveFileChunkReceive:withFileIndex:withFileName:withPosition:withLength:) 
-    func didReceiveFileChunkReceive(carrier: Carrier,
-                                    friendId: String,
-                                    fileindex: Int32,
-                                    fileName: String,
-                                    position: Int64,
-                                    length: Int)
+    ///void (*file_completed)(IOEXCarrier *carrier, const char *fileid, const char *friendid, void *context);
+    @objc(carrier:didReceiveFileCompleted:withFriendId:)
+    func didReceiveFileCompleted(carrier: Carrier,
+                                _ fileid: String,
+                                friendid: String    )
+
+    ///void (*file_progress)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, uint64_t size, uint64_t transferred, void *context);
+    @objc(carrier:didReceiveFileProgress:withFileId:withFriendId:withFullpath:withFileSize:)
+    func didReceiveFileProgress(carrier: Carrier,
+                                  _ fileid: String,
+                                  friendid: String,
+                                  fullpath: String,
+                                      size: Int64,
+                               transferred: Int64)
+//    ///var file_chunk_send: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+//    ///void (*file_chunk_send)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,const char *filename, const uint64_t position, const size_t length,void *context);
+//    @objc(carrier:didReceiveFileChunkSend:withFileIndex:withFileName:withPosition:withLength:)
+//    func didReceiveFileChunkSend(carrier: Carrier,
+//                                friendId: String,
+//                                fileindex: Int32,
+//                                fileName: String,
+//                                 position: Int64,
+//                                length: Int)
+//
+//    ///var file_chunk_send_error: (@convention(c)(OpaquePointer?, Int, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+//    ///void (*file_chunk_send_error)(IOEXCarrier *carrier, int errcode, const char *friendid, const uint32_t fileindex,const char *fullpath, const uint64_t position, const size_t length, void *context);
+//    @objc(carrier:didReceiveFileChunkSendError:withFRIENDId:withFileIndex:withFileName:withPosition:withLength:)
+//    func didReceiveFileChunkSendError(carrier: Carrier,
+//                                    errorCode: Int,
+//                                     friendId: String,
+//                                    fileindex: Int32,
+//                                     fullpath: String,
+//                                     position: Int64,
+//                                       length: Int)
+//
+//    ///var file_chunk_receive: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+//    ///void (*file_chunk_receive)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,const char *filename, const uint64_t position, const size_t length,void *context)
+//    @objc(carrier:didReceiveFileChunkReceive:withFileIndex:withFileName:withPosition:withLength:)
+//    func didReceiveFileChunkReceive(carrier: Carrier,
+//                                    friendId: String,
+//                                    fileindex: Int32,
+//                                    fileName: String,
+//                                    position: Int64,
+//                                    length: Int)
     
     /**************/
 //    @objc(carrier:ReceivedComplete:)

@@ -562,6 +562,24 @@ internal struct CCallbacks {
     
     /**
      * \~English
+     * An application-defined function that process the file query request.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who send the file query request.
+     * @param
+     *      filename    [in] The name of file which is queried by the friend.
+     * @param
+     *      message     [in] Extra message sent by the friend.
+     * @param
+     *      context     [in] The application defined context data.
+    void (*file_queried)(IOEXCarrier *carrier, const char *friendid, const char *filename, const char *message, void *context);
+    */
+    var file_queried: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    /**
+     * \~English
      * An application-defined function that process the file send request.
      *
      * @param
@@ -576,9 +594,10 @@ internal struct CCallbacks {
      *      filesize    [in] The size of the file in bytes.
      * @param
      *      context     [in] The application defined context data.
-    void (*file_request)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, const char *filename, uint64_t filesize, void *context);
+    
+    void (*file_request)(IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t filesize, void *context);
     */
-    var file_request: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_request: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,UnsafePointer<Int8>?,Int, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     /**
      * \~English
@@ -593,9 +612,9 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been accepted.
      * @param
      *      context     [in] The application defined context data.
-    void (*file_accepted)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
+    void (*file_accepted)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, size_t filesize, void *context);
      */
-    var file_accepted: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_accepted: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     
     /**
@@ -611,10 +630,9 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been rejected.
      * @param
      *      context     [in] The application defined context data.
- 
-    void (*file_rejected)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, void *context);
+    void (*file_rejected)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
      */
-    var file_rejected: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_rejected: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,  UnsafeMutableRawPointer?) -> Swift.Void)!
     
     
     /**
@@ -630,10 +648,9 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been paused.
      * @param
      *      context     [in] The application defined context data.
- 
-    void (*file_paused)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, void *context);
+    void (*file_paused)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
      */
-    var file_paused: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_paused: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     /**
      * \~English
@@ -648,10 +665,9 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been resumed.
      * @param
      *      context     [in] The application defined context data.
- 
-    void (*file_resumed)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, void *context);
+     void (*file_resumed)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
     */
-    var file_resumed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_resumed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     /**
      * \~English
@@ -666,80 +682,50 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been canceled.
      * @param
      *      context     [in] The application defined context data.
- 
-    void (*file_canceled)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, void *context);
+     void (*file_canceled)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
      */
-    var file_canceled: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_canceled: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     /**
      * \~English
-     * An application-defined function that process the file chunk request.
+     * An application-defined function that is called when file transmission is completed.
      *
      * @param
      *      carrier     [in] A handle to the Carrier node instance.
      * @param
-     *      friendid    [in] The user id from who asked us to send a chunk of file.
+     *      fileid      [in] The unique id for this file transmission.
      * @param
-     *      fileindex   [in] The index of the file which is requested.
-     * @param
-     *      filename    [in] The name of the file which is requested.
-     * @param
-     *      position    [in] The start position of the file in bytes that should be sent.
-     * @param
-     *      length      [in] The size of the file that should be sent in bytes.
-     * @param
-     *      context     [in] The application defined context data.
-     void (*file_chunk_send)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex, const char *fullpath, const uint64_t position, const size_t length,void *context);
-    */
-    var file_chunk_send: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
-    
-    /**
-     * \~English
-     * An application-defined function that process the file chunk send errors.
-     *
-     * @param
-     *      carrier     [in] A handle to the Carrier node instance.
-     * @param
-     *      errcode     [in] The error code.
-     * @param
-     *      friendid    [in] The user id whom we sent file chunk to.
-     * @param
-     *      fileindex   [in] The index of the file which is sent.
-     * @param
-     *      fullpath    [in] The path with name of the local file.
-     * @param
-     *      position    [in] The start position of the file in bytes that is sent.
-     * @param
-     *      length      [in] The size of the file that is sent in bytes.
+     *      friendid    [in] The user id who participant this file transmission.
      * @param
      *      context     [in] The application defined context data.
  
-    void (*file_chunk_send_error)(IOEXCarrier *carrier, int errcode, const char *friendid, const uint32_t fileindex,const char *fullpath, const uint64_t position, const size_t length, void *context);
+    void (*file_completed)(IOEXCarrier *carrier, const char *fileid, const char *friendid, void *context);
      */
-    var file_chunk_send_error: (@convention(c)(OpaquePointer?, Int, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_completed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     /**
-     * \~English
-     * An application-defined function that process received file chunks.
+     * \~
+     * An application-defined function that serves as file transmission progress callback
      *
      * @param
      *      carrier     [in] A handle to the Carrier node instance.
      * @param
-     *      friendid    [in] The user id from who sent us the file chunks.
+     *      fileid      [in] The unique id for this file transmission.
      * @param
-     *      fileindex   [in] The index of the file which is received.
+     *      friendid    [in] The user id who participant this file transmission.
      * @param
      *      fullpath    [in] The path with name of the local file.
      * @param
-     *      position    [in] The start position of the file in bytes to be store.
+     *      size        [in] The total size in byte of this file.
      * @param
-     *      length      [in] The size of the file that should be stored in bytes.
+     *      transferred [in] The transferred size in byte of this file.
      * @param
      *      context     [in] The application defined context data.
-    
-     void (*file_chunk_receive)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,const char *fullpath, const uint64_t position, const size_t length,void *context);
+ 
+    void (*file_progress)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, uint64_t size, uint64_t transferred, void *context);
      */
-    var file_chunk_receive: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UInt32, UnsafePointer<Int8>?, UInt64, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_progress: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,  UnsafePointer<Int8>?, UInt64, UInt64, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
     
     /**
      *  KJ test
@@ -1357,12 +1343,61 @@ internal func IOEX_reply_friend_invite(_ carrier: OpaquePointer!,
 
 /**
  * \~English
+ * An application-defined function that iterate the each file transmission.
+ *
+ * IOEXFilesIterateCallback is the callback function type.
+ *
+ * @param
+ *      info        [in] A pointer to IOEXTrackerInfo structure that
+ *                       representing a file transmission.
+ * @param
+ *      context     [in] The application defined context data.
+ *
+ * @return
+ *      Return true to continue iterate next file info,
+ *      false to stop iterate.
+typedef bool IOEXFilesIterateCallback(int direction, const IOEXTrackerInfo *info, void *context);
+ */
+internal typealias CFilesIterateCallback = @convention(c)( UnsafeRawPointer?, UnsafeRawPointer?, UnsafeMutableRawPointer?) -> Bool
+
+/**
+ * \~English
+ * An application-defined function that process the file query request.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      friendid    [in] The user id whom we send the file query to.
+ * @param
+ *      filename    [in] The name of file we are querying for.
+ * @param
+ *      message     [in] Extra message we sent to friend.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+CARRIER_API
+int IOEX_send_file_query(IOEXCarrier *carrier, const char *friendid, const char *filename, const char *message);
+*/
+@_silgen_name("IOEX_send_file_query")
+internal func IOEX_send_file_query(_ carrier: OpaquePointer!,
+                                     _ friendid: UnsafePointer<Int8>!,
+                                     _ filename: UnsafePointer<Int8>!,
+                                     _ message: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
  * An application-defined function that process the file send request.
  *
  * @param
  *      carrier     [in] A handle to the Carrier node instance.
  * @param
- *      friendid    [in] The user id from who send the file send request.
+ *      fileid      [out] The buffer that used to store base58 encoded file id.
+ *                        The size of the buffer should >= IOEX_MAX_ID_LEN (45).
+ * @param
+ *      id_len      [in] Size of the fileid buffer. It should >= IOEX_MAX_ID_LEN (45)
+ * @param
+ *      friendid    [in] The user id whom we send the file send request to.
  * @param
  *      filename    [in] The name of file which is requested to be sent from friend.
  * @return
@@ -1370,12 +1405,14 @@ internal func IOEX_reply_friend_invite(_ carrier: OpaquePointer!,
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
 CARRIER_API
-int IOEX_send_file_request(IOEXCarrier *w, const char *friendid, const char *filename);
-*/
+int IOEX_send_file_request(IOEXCarrier *carrier, char *fileid, size_t id_len, const char *friendid, const char *filename);
+  */
 @_silgen_name("IOEX_send_file_request")
 internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
-                                       _ friendid: UnsafePointer<Int8>!,
-                                       _ filename: UnsafePointer<Int8>!) -> Int32
+                                       fileid: UnsafeMutablePointer<Int8>!,
+                                       id_len: Int,
+                                       friendid: UnsafePointer<Int8>!,
+                                       filename: UnsafePointer<Int8>!) -> UnsafeMutablePointer<Int8>!
 
 /**
  * \~English
@@ -1384,27 +1421,127 @@ internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
  * @param
  *      carrier     [in] A handle to the Carrier node instance.
  * @param
- *      friendid    [in] The user id from who send the file send request.
+ *      fileid      [in] The unique id of the file that will be accepted.
  * @param
- *      fileindex   [in] The index of the file that will be accepted.
+ *      filename    [in] Rename the file as filename.
+ * @param
+ *      filepath    [in] The path to store the file.
  * @return
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
 CARRIER_API
- int IOEX_send_file_accept(IOEXCarrier *carrier, const char *friendid, const char *fileindex,
- const char *filename, const char *filepath);
+int IOEX_send_file_accept(IOEXCarrier *carrier, const char *fileid, const char *filename, const char *filepath);
 */
 @_silgen_name("IOEX_send_file_accept")
 internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
-                                     _ friendid: UnsafePointer<Int8>!,
-                                     _ fileindex: UnsafePointer<Int8>!,
+                                     _ fileid: UnsafePointer<Int8>!,
                                      _ filename: UnsafePointer<Int8>!,
                                      _ filepath: UnsafePointer<Int8>!) -> Int32
 
 /**
  * \~English
- * An application-defined function that process the file send request.
+ * An application-defined function that sends file seek control.
+ * This function must be called right after the file request is received, and before sending accept.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be seeked.
+ * @param
+ *      position    [in] The start position of the file that should be sent.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+CARRIER_API
+int IOEX_send_file_seek(IOEXCarrier *carrier, const char *fileid, const char *position);
+ */
+@_silgen_name("IOEX_send_file_seek")
+internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
+                                    fileid: UnsafePointer<Int8>!,
+                                  _ position: UnsafePointer<Int8>!) -> Int32
+
+
+/**
+ * \~English
+ * An application-defined function that rejects a file send request.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be rejected.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+CARRIER_API
+int IOEX_send_file_reject(IOEXCarrier *carrier, const char *fileid);
+  */
+@_silgen_name("IOEX_send_file_reject")
+internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
+                                       fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that pause a file transmission.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be paused.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+CARRIER_API
+int IOEX_send_file_pause(IOEXCarrier *carrier, const char *fileid);
+ */
+@_silgen_name("IOEX_send_file_pause")
+internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
+                                    fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that resume a file transmission.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be resumed.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+CARRIER_API
+int IOEX_send_file_resume(IOEXCarrier *carrier, const char *fileid);
+ */
+@_silgen_name("IOEX_send_file_resume")
+internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
+                                   fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that cancels a file transmission.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be canceled.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+CARRIER_API
+int IOEX_send_file_cancel(IOEXCarrier *carrier, const char *fileid);
+ */
+@_silgen_name("IOEX_send_file_cancel")
+internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
+                                    fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that iteratively get file info.
  *
  * @param
  *      carrier     [in] A handle to the Carrier node instance.
@@ -1416,14 +1553,9 @@ internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
- 
- typedef bool IOEXFilesIterateCallback(int direction, const IOEXFileInfo *info, void *context);
  CARRIER_API
- int IOEX_get_files(IOEXCarrier *carrier, IOEXFilesIterateCallback *callback, void *context);
- */
-internal typealias CFilesIterateCallback = @convention(c)( UnsafeRawPointer?, UnsafeRawPointer?, UnsafeMutableRawPointer?) -> Bool
-//internal typealias CFriendsIterateCallback = @convention(c)(UnsafeRawPointer?, UnsafeMutableRawPointer?) -> Bool
-
+int IOEX_get_files(IOEXCarrier *carrier, IOEXFilesIterateCallback *callback, void *context);
+*/
 @_silgen_name("IOEX_get_files")
 internal func IOEX_get_files(_ carrier: OpaquePointer!,
                              _ callback: CFilesIterateCallback!,
@@ -1431,126 +1563,26 @@ internal func IOEX_get_files(_ carrier: OpaquePointer!,
 
 /**
  * \~English
- * An application-defined function that sends file seek control.
- * This function must be called right after the file request is received, and before sending accept.
+ * An application-defined function that get file info.
  *
  * @param
  *      carrier     [in] A handle to the Carrier node instance.
  * @param
- *      friendid    [in] The user id from who sent the file send request.
- * @param
- *      fileindex   [in] The index of the file that will be sent.
- * @param
- *      position    [in] The start position of the file that should be sent.
+ *      fileinfo    [out] The buffer to store the file transmission info.
+ * @param`
+ *      fileid      [in] The unique id of the file transmission.
  * @return
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-
 CARRIER_API
-int IOEX_send_file_seek(IOEXCarrier *carrier, const char *friendid, const char *fileindex,
-    const char *position);
- */
-@_silgen_name("IOEX_send_file_seek")
-internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
-                                    friendid: UnsafePointer<Int8>!,
-                                  _ fileindex: UnsafePointer<Int8>!,
-                                  _ position: UnsafePointer<Int8>!) -> Int32
-
-
-/**
- * \~English
- * An application-defined function that rejects a file send request.
- *
- * @param
- *      carrier     [in] A handle to the Carrier node instance.
- * @param
- *      friendid    [in] The user id from who sent the file send request.
- * @param
- *      fileindex   [in] The index of the file that will be rejected.
- * @return
- *      0 if the request successfully send to the friend.
- *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling IOEX_get_error().
-
-CARRIER_API
-int IOEX_send_file_reject(IOEXCarrier *carrier, const char *friendid, const char *fileindex);
+int IOEX_get_file_info(IOEXCarrier *carrier, IOEXFileInfo *fileinfo, const char *fileid);
   */
-@_silgen_name("IOEX_send_file_reject")
-internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
-                                  friendid: UnsafePointer<Int8>!,
-                                  _ fileindex: UnsafePointer<Int8>!) -> Int32
-
-/**
- * \~English
- * An application-defined function that pause a file transmission.
- *
- * @param
- *      carrier     [in] A handle to the Carrier node instance.
- * @param
- *      friendid    [in] The user id who sends/receives the file.
- * @param
- *      fileindex   [in] The index of the file that will be paused.
- * @return
- *      0 if the request successfully send to the friend.
- *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling IOEX_get_error().
-
-CARRIER_API
-int IOEX_send_file_pause(IOEXCarrier *carrier, const char *friendid, const char *fileindex);
- */
-@_silgen_name("IOEX_send_file_pause")
-internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
-                                    friendid: UnsafePointer<Int8>!,
-                                    _ fileindex: UnsafePointer<Int8>!) -> Int32
-
-/**
- * \~English
- * An application-defined function that resume a file transmission.
- *
- * @param
- *      carrier     [in] A handle to the Carrier node instance.
- * @param
- *      friendid    [in] The user id from who sends/receives the file.
- * @param
- *      fileindex   [in] The index of the file that will be resumed.
- * @return
- *      0 if the request successfully send to the friend.
- *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling IOEX_get_error().
-
-CARRIER_API
-int IOEX_send_file_resume(IOEXCarrier *carrier, const char *friendid, const char *fileindex);
- */
-@_silgen_name("IOEX_send_file_resume")
-internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
-                                   friendid: UnsafePointer<Int8>!,
-                                   _ fileindex: UnsafePointer<Int8>!) -> Int32
-
-/**
- * \~English
- * An application-defined function that cancels a file transmission.
- *
- * @param
- *      carrier     [in] A handle to the Carrier node instance.
- * @param
- *      friendid    [in] The user id from who sends/receives the file.
- * @param
- *      fileindex   [in] The index of the file that will be canceled.
- * @return
- *      0 if the request successfully send to the friend.
- *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling IOEX_get_error().
-
-CARRIER_API
-int IOEX_send_file_cancel(IOEXCarrier *carrier, const char *friendid, const char *fileindex);
- */
-@_silgen_name("IOEX_send_file_cancel")
-internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
-                                    friendid: UnsafePointer<Int8>!,
-                                    _ fileindex: UnsafePointer<Int8>!) -> Int32
-
-// MARK: - Error handling
+@_silgen_name("IOEX_get_file_info")
+internal func IOEX_get_file_info(_ carrier: OpaquePointer!,
+                             _ fileinfo: UnsafeMutablePointer<CFileInfo>!,
+                             _ fileid: UnsafePointer<Int8>!) -> Int32
+ // MARK: - Error handling
 
 /*
  * \~English
@@ -1571,6 +1603,3 @@ internal func IOEX_get_error() -> Int32
 @_silgen_name("IOEX_clear_error")
 internal func IOEX_clear_error()
 
-/**
- KJ test
- */
