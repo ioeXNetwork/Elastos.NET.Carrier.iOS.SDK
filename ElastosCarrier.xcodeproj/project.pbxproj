@@ -107,8 +107,6 @@
 		A3B498072003B3A400420421 /* NetworkTopology.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkTopology.swift; path = Session/NetworkTopology.swift; sourceTree = "<group>"; };
 		A3B498162003B3AE00420421 /* CarrierError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CarrierError.swift; path = Exceptions/CarrierError.swift; sourceTree = "<group>"; };
 		A3B4981820045F0A00420421 /* PresenceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresenceStatus.swift; path = Carrier/PresenceStatus.swift; sourceTree = "<group>"; };
-		A3B498392005BE7600420421 /* libelasession.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libelasession.a; path = NativeDistributions/libs/libelasession.a; sourceTree = "<group>"; };
-		A3B4983A2005BE7600420421 /* libelacommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libelacommon.a; path = NativeDistributions/libs/libelacommon.a; sourceTree = "<group>"; };
 		A3B4983B2005BE7600420421 /* libpjlib-util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjlib-util.a"; path = "NativeDistributions/libs/libpjlib-util.a"; sourceTree = "<group>"; };
 		A3B4983C2005BE7600420421 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = NativeDistributions/libs/libsodium.a; sourceTree = "<group>"; };
 		A3B4983D2005BE7600420421 /* libpj.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpj.a; path = NativeDistributions/libs/libpj.a; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 		A3B498402005BE7600420421 /* libflatcc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libflatcc.a; path = NativeDistributions/libs/libflatcc.a; sourceTree = "<group>"; };
 		A3B498412005BE7600420421 /* libpjnath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpjnath.a; path = NativeDistributions/libs/libpjnath.a; sourceTree = "<group>"; };
 		A3B498422005BE7600420421 /* libtoxcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtoxcore.a; path = NativeDistributions/libs/libtoxcore.a; sourceTree = "<group>"; };
-		A3B498432005BE7600420421 /* libelacarrier.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libelacarrier.a; path = NativeDistributions/libs/libelacarrier.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,9 +278,6 @@
 				819E3FDA21644EF500C710BB /* libIOEXcarrier.a */,
 				819E3FDB21644EF500C710BB /* libIOEXcommon.a */,
 				819E3FD921644EF500C710BB /* libIOEXsession.a */,
-				A3B498432005BE7600420421 /* libelacarrier.a */,
-				A3B4983A2005BE7600420421 /* libelacommon.a */,
-				A3B498392005BE7600420421 /* libelasession.a */,
 				A3B498402005BE7600420421 /* libflatcc.a */,
 				A3B4983E2005BE7600420421 /* libflatccrt.a */,
 				A3B4983D2005BE7600420421 /* libpj.a */,

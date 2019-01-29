@@ -1490,7 +1490,7 @@ int IOEX_remove_friend(IOEXCarrier *carrier, const char *userid);
  * @param
  *      carrier     [in] A handle to the Carrier node instance.
  * @param
- *      to          [in] The target userid.
+ *      to          [in] The target userid.		
  * @param
  *      msg         [in] The message content defined by application.
  * @param

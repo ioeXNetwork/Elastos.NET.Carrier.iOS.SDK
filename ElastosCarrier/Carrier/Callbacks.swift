@@ -346,6 +346,25 @@ private func onReceiveFileProgress(_: OpaquePointer?,
     handler.didReceiveFileProgress(carrier: ca, file_id, friendid: friend_id, fullpath: full_path, size: Int64(size), transferred: Int64(transferred))
 }
 
+///void (*file_aborted)(IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t length, size_t filesize, void *context);
+private func onReceiveFileAborted(_: OpaquePointer?,
+                                   fileid: UnsafePointer<Int8>?,
+                                   friendid: UnsafePointer<Int8>?,
+                                   filename:UnsafePointer<Int8>?,
+                                   length :Int,
+                                   filesize:Int,
+                                   context: UnsafeMutableRawPointer?){
+    
+    let ca = getCarrier(context!)
+    let handler = ca.delegate!
+    
+    let friend_id = String(cString: friendid!)
+    let file_id = String(cString: fileid!)
+    let file_name = String(cString: filename!)
+    
+    handler.didReceiveFileAborted(carrier: ca, file_id, friendid: friend_id, filename: file_name, length: length, filesize: filesize)
+}
+
 internal func getNativeHandlers() -> CCallbacks {
 
     var callbacks = CCallbacks()
@@ -371,6 +390,6 @@ internal func getNativeHandlers() -> CCallbacks {
     callbacks.file_resumed = onReceiveFileResumed
     callbacks.file_completed = onReceiveFileCompleted
     callbacks.file_progress = onReceiveFileProgress
-
+    callbacks.file_aborted = onReceiveFileAborted
     return callbacks
 }

@@ -704,6 +704,31 @@ internal struct CCallbacks {
     var file_completed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     /**
+     * \~English
+     * An application-defined function that is called when file transmission is aborted.
+     * File transmission abortion is usually caused by the disconnection of the friend.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      fileid      [in] The unique id for this file transmission.
+     * @param
+     *      friendid    [in] The user id who participant this file transmission.
+     * @param
+     *      filename    [in] The name of the file that is transmitting.
+     * @param
+     *      length      [in] The length of the transmitted data in bytes.
+     * @param
+     *      filesize    [in] Total size of the file.
+     * @param
+     *      context     [in] The application defined context data.
+ 
+    void (*file_aborted)(IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t length, size_t filesize, void *context);
+    */
+    var file_aborted:(@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,Int ,Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    
+    /**
      * \~
      * An application-defined function that serves as file transmission progress callback
      *
