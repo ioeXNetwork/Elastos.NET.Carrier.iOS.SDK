@@ -14,9 +14,9 @@
 		819E3FDE21644EF500C710BB /* libIOEXcommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 819E3FDB21644EF500C710BB /* libIOEXcommon.a */; };
 		819E3FE021648D0500C710BB /* FileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E3FDF21648D0500C710BB /* FileInfo.swift */; };
 		A360378020161AAF001A666E /* BootstrapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A360377F20161AAF001A666E /* BootstrapNode.swift */; };
-		A3B497C12003736300420421 /* ElastosCarrier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B497B72003736200420421 /* ElastosCarrier.framework */; };
-		A3B497C62003736300420421 /* ElastosCarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497C52003736300420421 /* ElastosCarrierTests.swift */; };
-		A3B497C82003736300420421 /* ElastosCarrier.h in Headers */ = {isa = PBXBuildFile; fileRef = A3B497BA2003736300420421 /* ElastosCarrier.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A3B497C12003736300420421 /* IOEXCarrier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B497B72003736200420421 /* IOEXCarrier.framework */; };
+		A3B497C62003736300420421 /* IOEXCarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497C52003736300420421 /* IOEXCarrierTests.swift */; };
+		A3B497C82003736300420421 /* IOEXCarrier.h in Headers */ = {isa = PBXBuildFile; fileRef = A3B497BA2003736300420421 /* IOEXCarrier.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3B497E82003763600420421 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497DE2003763500420421 /* LogLevel.swift */; };
 		A3B497E92003763600420421 /* FriendInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497DF2003763500420421 /* FriendInfo.swift */; };
 		A3B497EB2003763600420421 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497E12003763500420421 /* UserInfo.swift */; };
@@ -59,7 +59,7 @@
 			containerPortal = A3B497AE2003736200420421 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A3B497B62003736200420421;
-			remoteInfo = ElastosCarrier;
+			remoteInfo = IOEXCarrier;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -71,11 +71,11 @@
 		819E3FDB21644EF500C710BB /* libIOEXcommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIOEXcommon.a; path = NativeDistributions/libs/libIOEXcommon.a; sourceTree = "<group>"; };
 		819E3FDF21648D0500C710BB /* FileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileInfo.swift; path = Carrier/FileInfo.swift; sourceTree = "<group>"; };
 		A360377F20161AAF001A666E /* BootstrapNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BootstrapNode.swift; path = Carrier/BootstrapNode.swift; sourceTree = "<group>"; };
-		A3B497B72003736200420421 /* ElastosCarrier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ElastosCarrier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3B497BA2003736300420421 /* ElastosCarrier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElastosCarrier.h; sourceTree = "<group>"; };
+		A3B497B72003736200420421 /* IOEXCarrier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IOEXCarrier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3B497BA2003736300420421 /* IOEXCarrier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOEXCarrier.h; sourceTree = "<group>"; };
 		A3B497BB2003736300420421 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A3B497C02003736300420421 /* ElastosCarrierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElastosCarrierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3B497C52003736300420421 /* ElastosCarrierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElastosCarrierTests.swift; sourceTree = "<group>"; };
+		A3B497C02003736300420421 /* IOEXCarrierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOEXCarrierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3B497C52003736300420421 /* IOEXCarrierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOEXCarrierTests.swift; sourceTree = "<group>"; };
 		A3B497C72003736300420421 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B497DE2003763500420421 /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogLevel.swift; path = Carrier/LogLevel.swift; sourceTree = "<group>"; };
 		A3B497DF2003763500420421 /* FriendInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendInfo.swift; path = Carrier/FriendInfo.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3B497C12003736300420421 /* ElastosCarrier.framework in Frameworks */,
+				A3B497C12003736300420421 /* IOEXCarrier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,8 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				A3B497D22003755700420421 /* NativeDistributions */,
-				A3B497B92003736300420421 /* ElastosCarrier */,
-				A3B497C42003736300420421 /* ElastosCarrierTests */,
+				A3B497B92003736300420421 /* IOEXCarrier */,
+				A3B497C42003736300420421 /* IOEXCarrierTests */,
 				A3B497B82003736200420421 /* Products */,
 				A3B498382005BE7500420421 /* Frameworks */,
 			);
@@ -157,32 +157,32 @@
 		A3B497B82003736200420421 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A3B497B72003736200420421 /* ElastosCarrier.framework */,
-				A3B497C02003736300420421 /* ElastosCarrierTests.xctest */,
+				A3B497B72003736200420421 /* IOEXCarrier.framework */,
+				A3B497C02003736300420421 /* IOEXCarrierTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A3B497B92003736300420421 /* ElastosCarrier */ = {
+		A3B497B92003736300420421 /* IOEXCarrier */ = {
 			isa = PBXGroup;
 			children = (
 				A3B497DD2003760500420421 /* Exceptions */,
 				A3B497DA200375EE00420421 /* Carrier */,
 				A3B497DB200375F600420421 /* Session */,
 				A3B497DC200375FD00420421 /* Utilities */,
-				A3B497BA2003736300420421 /* ElastosCarrier.h */,
+				A3B497BA2003736300420421 /* IOEXCarrier.h */,
 				A3B497BB2003736300420421 /* Info.plist */,
 			);
-			path = ElastosCarrier;
+			path = IOEXCarrier;
 			sourceTree = "<group>";
 		};
-		A3B497C42003736300420421 /* ElastosCarrierTests */ = {
+		A3B497C42003736300420421 /* IOEXCarrierTests */ = {
 			isa = PBXGroup;
 			children = (
-				A3B497C52003736300420421 /* ElastosCarrierTests.swift */,
+				A3B497C52003736300420421 /* IOEXCarrierTests.swift */,
 				A3B497C72003736300420421 /* Info.plist */,
 			);
-			path = ElastosCarrierTests;
+			path = IOEXCarrierTests;
 			sourceTree = "<group>";
 		};
 		A3B497D22003755700420421 /* NativeDistributions */ = {
@@ -293,16 +293,16 @@
 			files = (
 				819E3FD721644EE600C710BB /* IOEX_session.h in Headers */,
 				819E3FD821644EE600C710BB /* IOEX_carrier.h in Headers */,
-				A3B497C82003736300420421 /* ElastosCarrier.h in Headers */,
+				A3B497C82003736300420421 /* IOEXCarrier.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		A3B497B62003736200420421 /* ElastosCarrier */ = {
+		A3B497B62003736200420421 /* IOEXCarrier */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A3B497CB2003736300420421 /* Build configuration list for PBXNativeTarget "ElastosCarrier" */;
+			buildConfigurationList = A3B497CB2003736300420421 /* Build configuration list for PBXNativeTarget "IOEXCarrier" */;
 			buildPhases = (
 				A3B497B22003736200420421 /* Sources */,
 				A3B497B32003736200420421 /* Frameworks */,
@@ -313,14 +313,14 @@
 			);
 			dependencies = (
 			);
-			name = ElastosCarrier;
-			productName = ElastosCarrier;
-			productReference = A3B497B72003736200420421 /* ElastosCarrier.framework */;
+			name = IOEXCarrier;
+			productName = IOEXCarrier;
+			productReference = A3B497B72003736200420421 /* IOEXCarrier.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A3B497BF2003736300420421 /* ElastosCarrierTests */ = {
+		A3B497BF2003736300420421 /* IOEXCarrierTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A3B497CE2003736300420421 /* Build configuration list for PBXNativeTarget "ElastosCarrierTests" */;
+			buildConfigurationList = A3B497CE2003736300420421 /* Build configuration list for PBXNativeTarget "IOEXCarrierTests" */;
 			buildPhases = (
 				A3B497BC2003736300420421 /* Sources */,
 				A3B497BD2003736300420421 /* Frameworks */,
@@ -331,9 +331,9 @@
 			dependencies = (
 				A3B497C32003736300420421 /* PBXTargetDependency */,
 			);
-			name = ElastosCarrierTests;
-			productName = ElastosCarrierTests;
-			productReference = A3B497C02003736300420421 /* ElastosCarrierTests.xctest */;
+			name = IOEXCarrierTests;
+			productName = IOEXCarrierTests;
+			productReference = A3B497C02003736300420421 /* IOEXCarrierTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -344,7 +344,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = org.elastos;
+				ORGANIZATIONNAME = ioeXNetwork;
 				TargetAttributes = {
 					A3B497B62003736200420421 = {
 						CreatedOnToolsVersion = 9.2;
@@ -357,7 +357,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A3B497B12003736200420421 /* Build configuration list for PBXProject "ElastosCarrier" */;
+			buildConfigurationList = A3B497B12003736200420421 /* Build configuration list for PBXProject "IOEXCarrier" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -369,8 +369,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A3B497B62003736200420421 /* ElastosCarrier */,
-				A3B497BF2003736300420421 /* ElastosCarrierTests */,
+				A3B497B62003736200420421 /* IOEXCarrier */,
+				A3B497BF2003736300420421 /* IOEXCarrierTests */,
 			);
 		};
 /* End PBXProject section */
@@ -432,7 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3B497C62003736300420421 /* ElastosCarrierTests.swift in Sources */,
+				A3B497C62003736300420421 /* IOEXCarrierTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +441,7 @@
 /* Begin PBXTargetDependency section */
 		A3B497C32003736300420421 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A3B497B62003736200420421 /* ElastosCarrier */;
+			target = A3B497B62003736200420421 /* IOEXCarrier */;
 			targetProxy = A3B497C22003736300420421 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -571,7 +571,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
-				INFOPLIST_FILE = ElastosCarrier/Info.plist;
+				INFOPLIST_FILE = IOEXCarrier/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -579,7 +579,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NativeDistributions/libs",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.elastos.carrier;
+				PRODUCT_BUNDLE_IDENTIFIER = IOEX.carrier;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -600,7 +600,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
-				INFOPLIST_FILE = ElastosCarrier/Info.plist;
+				INFOPLIST_FILE = IOEXCarrier/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -608,7 +608,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NativeDistributions/libs",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.elastos.carrier;
+				PRODUCT_BUNDLE_IDENTIFIER = IOEX.carrier;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -622,9 +622,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ElastosCarrierTests/Info.plist;
+				INFOPLIST_FILE = IOEXCarrierTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.elastos.ElastosCarrierTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ioeXNetwork.IOEXCarrierTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -636,9 +636,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ElastosCarrierTests/Info.plist;
+				INFOPLIST_FILE = IOEXCarrierTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.elastos.ElastosCarrierTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ioeXNetwork.IOEXCarrierTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -648,7 +648,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A3B497B12003736200420421 /* Build configuration list for PBXProject "ElastosCarrier" */ = {
+		A3B497B12003736200420421 /* Build configuration list for PBXProject "IOEXCarrier" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A3B497C92003736300420421 /* Debug */,
@@ -657,7 +657,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A3B497CB2003736300420421 /* Build configuration list for PBXNativeTarget "ElastosCarrier" */ = {
+		A3B497CB2003736300420421 /* Build configuration list for PBXNativeTarget "IOEXCarrier" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A3B497CC2003736300420421 /* Debug */,
@@ -666,7 +666,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A3B497CE2003736300420421 /* Build configuration list for PBXNativeTarget "ElastosCarrierTests" */ = {
+		A3B497CE2003736300420421 /* Build configuration list for PBXNativeTarget "IOEXCarrierTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A3B497CF2003736300420421 /* Debug */,
