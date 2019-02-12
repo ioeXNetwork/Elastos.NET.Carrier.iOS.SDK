@@ -1,8 +1,10 @@
-# Elastos Carrier iOS Framework
+# IOEX Carrier iOS Framework
 
 ## Summary
 
-Elastos Carrier iOS Framework is swift API wrapper (also produced in Object-C APIs for Elastos Native Carrier, where Carrier is a decentralized peer to peer communication framework.
+IOEX leveraged Elastos functions to create its owned features and also business cases.
+
+IOEX Carrier iOS Framework is swift API wrapper (also produced in Object-C APIs for IOEX BravoMesh Carrier Module SDK, where Carrier is a decentralized peer to peer communication framework.
 
 ## Build from source
 
@@ -11,7 +13,7 @@ Elastos Carrier iOS Framework is swift API wrapper (also produced in Object-C AP
 You need to build carrier iOS ndk distributions from the Carrier native repository with following github address.
 
 ```
-https://github.com/elastos/Elastos.NET.Carrier.Native.SDK
+https://github.com/ioeXNetwork/ioeX.BravoMesh.CarrierModule
 ```
 
 Finished building iOS NDKs for Carrier, you would have native output libraries 'lipo'ed with serveral CPU architectures supported. Currently, only x86-64 and arm64 CPU architectures are supported.
@@ -25,8 +27,8 @@ The directory "NativeDistributions" where to import native libraries and headers
 ```
 NativeDistributions
    |--include
-       |--ela_carrier.h
-       |--ela_session.h
+       |--IOEX_carrier.h
+       |--IOEX_session.h
        |--CCarrier.swift
        |--CSession.swift
    |--libs
@@ -50,7 +52,7 @@ After importing dependencies from Carrier native, you need Xcode to open this pr
 
 ### 4. Output
 
-You can use Xcode to produce ElastosCarrier.framework.
+You can use Xcode to produce IOEXCarrier.framework.
 
 ## Tests
 
@@ -66,8 +68,8 @@ Sinserely thanks to all teams and projects that we relying on directly or indire
 
 ## Contributing
 
-We welcome contributions to the Elastos Carrier iOS Project (or Native Project) in many forms.
+We welcome contributions to the IOEX Carrier iOS Project (or Native Project) in many forms.
 
 ## License
 
-Elastos Carrier iOS Project source code files are made available under the MIT License, located in the LICENSE file. 
+IOEX Carrier iOS Project source code files are made available under the MIT License, located in the LICENSE file. 

@@ -20,6 +20,28 @@
  * SOFTWARE.
  */
 
+/*
+ * Copyright (c) 2018 ioeXNetwork
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 import Foundation
 
 @inline(__always)
@@ -195,10 +217,6 @@ private func onFriendInvite(_: OpaquePointer?, cfrom: UnsafePointer<Int8>?,
 }
 
 
-/**
- KJ Test
- */
-///IOEXCarrier *carrier, const char *friendid, const char *filename, const char *message, void *context)
 private func onReceiveFileQueried(_: OpaquePointer?,
                                   friendid: UnsafePointer<Int8>?,
                                   filename: UnsafePointer<Int8>?,
@@ -216,7 +234,6 @@ private func onReceiveFileQueried(_: OpaquePointer?,
 }
 
 
-///IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t filesize, void *context)
 private func onReceiveFileRequest(_: OpaquePointer?,
                                   _ fileid: UnsafePointer<Int8>?,
                                   friendid: UnsafePointer<Int8>?,
@@ -234,7 +251,6 @@ private func onReceiveFileRequest(_: OpaquePointer?,
     handler.didReceiveFileRequest(carrier: carrier, fileid: file_id, friend_id, file_name, filesize: filesize)
 }
 
-///void (*file_accepted)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, size_t filesize, void *context);
 private func onReceiveFileAccepted(_: OpaquePointer?,
                                    fileid:UnsafePointer<Int8>?,
                                   _ friendid: UnsafePointer<Int8>?,
@@ -252,7 +268,6 @@ private func onReceiveFileAccepted(_: OpaquePointer?,
     handler.didReceiveFileAccepted(carrier: ca, fileid: file_id, friendId: friend_id, fullpath: full_path, size_t: filesize)
 }
 
-///void (*file_rejected)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
 private func onReceiveFileRejected(_: OpaquePointer?,
                                      fileid: UnsafePointer<Int8>?,
                                    _ friendid: UnsafePointer<Int8>?,
@@ -267,7 +282,6 @@ private func onReceiveFileRejected(_: OpaquePointer?,
     handler.didReceiveFileRejected(carrier: ca, file_id, friendid: friend_id)
 }
 
-///void (*file_paused)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
 private func onReceiveFilePaused(_: OpaquePointer?,
                                  fileid: UnsafePointer<Int8>?,
                                  _ friendid: UnsafePointer<Int8>?,
@@ -282,7 +296,6 @@ private func onReceiveFilePaused(_: OpaquePointer?,
     handler.didReceiveFilePaused(carrier: ca, file_id, friendid: friend_id)
 }
 
-///void (*file_resumed)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
 private func onReceiveFileResumed(_: OpaquePointer?,
                                   fileid: UnsafePointer<Int8>?,
                                   _ friendid: UnsafePointer<Int8>?,
@@ -297,7 +310,6 @@ private func onReceiveFileResumed(_: OpaquePointer?,
     handler.didReceiveFileResumed(carrier: ca, file_id, friendid: friend_id)
 }
 
-///void (*file_canceled)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
 private func onReceiveFileCanceled(_: OpaquePointer?,
                                    fileid: UnsafePointer<Int8>?,
                                    _ friendid: UnsafePointer<Int8>?,
@@ -312,7 +324,6 @@ private func onReceiveFileCanceled(_: OpaquePointer?,
     handler.didReceiveFileCanceled(carrier: ca, file_id, friendid: friend_id)
 }
 
-///void (*file_completed)(IOEXCarrier *carrier, const char *fileid, const char *friendid, void *context);
 private func onReceiveFileCompleted(_: OpaquePointer?,
                                    fileid: UnsafePointer<Int8>?,
                                    _ friendid: UnsafePointer<Int8>?,
@@ -327,7 +338,6 @@ private func onReceiveFileCompleted(_: OpaquePointer?,
     handler.didReceiveFileCompleted(carrier: ca, file_id, friendid: friend_id)
 }
 
-///void (*file_progress)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, uint64_t size, uint64_t transferred, void *context);
 private func onReceiveFileProgress(_: OpaquePointer?,
                                    fileid: UnsafePointer<Int8>?,
                                    friendid: UnsafePointer<Int8>?,
@@ -346,7 +356,6 @@ private func onReceiveFileProgress(_: OpaquePointer?,
     handler.didReceiveFileProgress(carrier: ca, file_id, friendid: friend_id, fullpath: full_path, size: Int64(size), transferred: Int64(transferred))
 }
 
-///void (*file_aborted)(IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t length, size_t filesize, void *context);
 private func onReceiveFileAborted(_: OpaquePointer?,
                                    fileid: UnsafePointer<Int8>?,
                                    friendid: UnsafePointer<Int8>?,

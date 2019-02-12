@@ -19,37 +19,59 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+  
+/*
+ * Copyright (c) 2018 ioeXNetwork
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 import Foundation
 
 /**
     A class representing the Carrier user information.
 
-    In Elastos carrier SDK, self and all friends are carrier user, and have
+    In carrier SDK, self and all friends are carrier user, and have
     same user attributes.
  */
 @objc(ELACarrierUserInfo)
 public class CarrierUserInfo: NSObject {
 
-    /// Elastos carrier User ID max length.
+    /// carrier User ID max length.
     public static let MAX_ID_LEN: Int = 45
 
-    /// Elastos carrier user name max length.
+    /// carrier user name max length.
     public static let MAX_USER_NAME_LEN: Int = 63
 
-    /// Elastos carrier user description max length.
+    /// carrier user description max length.
     public static let MAX_USER_DESCRIPTION_LEN: Int = 127
 
-    /// Elastos carrier user gender max length.
+    /// carrier user gender max length.
     public static let MAX_GENDER_LEN: Int = 31
 
-    /// Elastos carrier user phone number max length.
+    /// carrier user phone number max length.
     public static let MAX_PHONE_LEN: Int = 31
 
-    /// Elastos carrier user email address max length.
+    /// carrier user email address max length.
     public static let MAX_EMAIL_LEN: Int = 127
 
-    /// Elastos carrier user region max length.
+    /// carrier user region max length.
     public static let MAX_REGION_LEN: Int = 127
 
     private var _userId   : String?

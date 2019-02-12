@@ -20,6 +20,28 @@
  * SOFTWARE.
  */
 
+/*
+ * Copyright (c) 2018 ioeXNetwork
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+ 
 import Foundation
 
 /**
@@ -189,11 +211,6 @@ public protocol CarrierDelegate {
                                        _ data: String)
     
     
-    /**
-     KJ TEST
-     */
-    
-    ///IOEXCarrier *carrier, const char *friendid, const char *filename, const char *message, void *context)
     @objc(carrier:didReceiveFileQueried:withFileIndex:withFileName:)
     func didReceiveFileQueried(carrier: Carrier,
                                _ friendId: String,
@@ -201,8 +218,6 @@ public protocol CarrierDelegate {
                                   message: String)
     
     
-    ///file_request callback
-    ///IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t filesize, void *context
     @objc(carrier:didReceiveFileRequest:withFileIndex:withFileName:withFileSize:)
     func didReceiveFileRequest(carrier: Carrier,
                                 fileid:String,
@@ -210,7 +225,6 @@ public protocol CarrierDelegate {
                             _ fileName: String,
                               filesize: Int)
     
-    ///IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, size_t filesize, void *context
     @objc(carrier:didReceiveFileAccepted:withFileIndex:withFilepath:withSize:)
     func didReceiveFileAccepted(carrier: Carrier,
                                  fileid: String,
@@ -218,38 +232,31 @@ public protocol CarrierDelegate {
                                fullpath: String,
                                  size_t: Int)
     
-    ///                      IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context)
     @objc(carrier:didReceiveFileRejected:withFriendId:)
     func didReceiveFileRejected(carrier: Carrier,
                                _ fileid: String,
                                friendid: String	)
 
-    ///void (*file_paused)(IOEXCarrier *carrier, const char *friendid, const uint32_t fileindex,void *context);
-    ///                    IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context)
     @objc(carrier:didReceiveFilePaused:withFriendId:)
     func didReceiveFilePaused(carrier: Carrier,
                               _ fileid: String,
                               friendid: String    )
     
-    ///void (*file_resumed)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
     @objc(carrier:didReceiveFileResumed:withFriendId:)
     func didReceiveFileResumed(carrier: Carrier,
                                _ fileid: String,
                                friendid: String    )
     
-    ///void (*file_canceled)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
     @objc(carrier:didReceiveFileCanceled:withFriendId:)
     func didReceiveFileCanceled(carrier: Carrier,
                                 _ fileid: String,
                                 friendid: String    )
     
-    ///void (*file_completed)(IOEXCarrier *carrier, const char *fileid, const char *friendid, void *context);
     @objc(carrier:didReceiveFileCompleted:withFriendId:)
     func didReceiveFileCompleted(carrier: Carrier,
                                 _ fileid: String,
                                 friendid: String    )
 
-    ///void (*file_progress)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, uint64_t size, uint64_t transferred, void *context);
     @objc(carrier:didReceiveFileProgress:withFileId:withFriendId:withFullpath:withFileSize:)
     func didReceiveFileProgress(carrier: Carrier,
                                   _ fileid: String,
@@ -258,7 +265,6 @@ public protocol CarrierDelegate {
                                       size: Int64,
                                transferred: Int64)
     
-    ///void (*file_aborted)(IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t length, size_t filesize, void *context);
     @objc(carrier:didReceiveFileAborted:withFileId:withFriendId:withFullpath:withFileSize:)
     func didReceiveFileAborted(carrier: Carrier,
                                 _ fileid: String,
@@ -267,11 +273,6 @@ public protocol CarrierDelegate {
                                   length: Int,
                                 filesize: Int)
     
-    
-    
-    /**************/
-//    @objc(carrier:ReceivedComplete:)
-//    func didTSFileReceivedComplete(_FileName: String,_RealFileName: String)
 }
 
 

@@ -20,6 +20,28 @@
  * SOFTWARE.
  */
 
+ /*
+ * Copyright (c) 2018 ioeXNetwork
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 import Foundation
 
 // MARK: Creation & destruction
@@ -574,7 +596,6 @@ internal struct CCallbacks {
      *      message     [in] Extra message sent by the friend.
      * @param
      *      context     [in] The application defined context data.
-    void (*file_queried)(IOEXCarrier *carrier, const char *friendid, const char *filename, const char *message, void *context);
     */
     var file_queried: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -594,8 +615,6 @@ internal struct CCallbacks {
      *      filesize    [in] The size of the file in bytes.
      * @param
      *      context     [in] The application defined context data.
-    
-    void (*file_request)(IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t filesize, void *context);
     */
     var file_request: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,UnsafePointer<Int8>?,Int, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -612,7 +631,6 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been accepted.
      * @param
      *      context     [in] The application defined context data.
-    void (*file_accepted)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, size_t filesize, void *context);
      */
     var file_accepted: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -630,7 +648,6 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been rejected.
      * @param
      *      context     [in] The application defined context data.
-    void (*file_rejected)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
      */
     var file_rejected: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,  UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -648,7 +665,6 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been paused.
      * @param
      *      context     [in] The application defined context data.
-    void (*file_paused)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
      */
     var file_paused: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -665,7 +681,6 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been resumed.
      * @param
      *      context     [in] The application defined context data.
-     void (*file_resumed)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
     */
     var file_resumed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -682,7 +697,6 @@ internal struct CCallbacks {
      *      fileindex   [in] The index of the file that has been canceled.
      * @param
      *      context     [in] The application defined context data.
-     void (*file_canceled)(IOEXCarrier *carrier, const char *fileid, const char *friendid,void *context);
      */
     var file_canceled: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -698,8 +712,6 @@ internal struct CCallbacks {
      *      friendid    [in] The user id who participant this file transmission.
      * @param
      *      context     [in] The application defined context data.
- 
-    void (*file_completed)(IOEXCarrier *carrier, const char *fileid, const char *friendid, void *context);
      */
     var file_completed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -722,8 +734,6 @@ internal struct CCallbacks {
      *      filesize    [in] Total size of the file.
      * @param
      *      context     [in] The application defined context data.
- 
-    void (*file_aborted)(IOEXCarrier *carrier, const char *fileid, const char *friendid, const char *filename, size_t length, size_t filesize, void *context);
     */
     var file_aborted:(@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,Int ,Int, UnsafeMutableRawPointer?) -> Swift.Void)!
     
@@ -746,16 +756,10 @@ internal struct CCallbacks {
      *      transferred [in] The transferred size in byte of this file.
      * @param
      *      context     [in] The application defined context data.
- 
-    void (*file_progress)(IOEXCarrier *carrier, const char *fileid, const char *friendid,const char *fullpath, uint64_t size, uint64_t transferred, void *context);
      */
     var file_progress: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,  UnsafePointer<Int8>?, UInt64, UInt64, UnsafeMutableRawPointer?) -> Swift.Void)!
     
     
-    /**
-     *  KJ test
-     */
-//    var TSFile_ReceivedComplete_Callback: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     init() {}
 }
 
@@ -1401,8 +1405,6 @@ internal typealias CFilesIterateCallback = @convention(c)( UnsafeRawPointer?, Un
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_query(IOEXCarrier *carrier, const char *friendid, const char *filename, const char *message);
 */
 @_silgen_name("IOEX_send_file_query")
 internal func IOEX_send_file_query(_ carrier: OpaquePointer!,
@@ -1429,8 +1431,6 @@ internal func IOEX_send_file_query(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_request(IOEXCarrier *carrier, char *fileid, size_t id_len, const char *friendid, const char *filename);
   */
 @_silgen_name("IOEX_send_file_request")
 internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
@@ -1455,8 +1455,6 @@ internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_accept(IOEXCarrier *carrier, const char *fileid, const char *filename, const char *filepath);
 */
 @_silgen_name("IOEX_send_file_accept")
 internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
@@ -1479,8 +1477,6 @@ internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_seek(IOEXCarrier *carrier, const char *fileid, const char *position);
  */
 @_silgen_name("IOEX_send_file_seek")
 internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
@@ -1500,8 +1496,6 @@ internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_reject(IOEXCarrier *carrier, const char *fileid);
   */
 @_silgen_name("IOEX_send_file_reject")
 internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
@@ -1519,8 +1513,6 @@ internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_pause(IOEXCarrier *carrier, const char *fileid);
  */
 @_silgen_name("IOEX_send_file_pause")
 internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
@@ -1538,8 +1530,6 @@ internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_resume(IOEXCarrier *carrier, const char *fileid);
  */
 @_silgen_name("IOEX_send_file_resume")
 internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
@@ -1557,8 +1547,6 @@ internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_send_file_cancel(IOEXCarrier *carrier, const char *fileid);
  */
 @_silgen_name("IOEX_send_file_cancel")
 internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
@@ -1578,8 +1566,6 @@ internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
- CARRIER_API
-int IOEX_get_files(IOEXCarrier *carrier, IOEXFilesIterateCallback *callback, void *context);
 */
 @_silgen_name("IOEX_get_files")
 internal func IOEX_get_files(_ carrier: OpaquePointer!,
@@ -1600,8 +1586,6 @@ internal func IOEX_get_files(_ carrier: OpaquePointer!,
  *      0 if the request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
-CARRIER_API
-int IOEX_get_file_info(IOEXCarrier *carrier, IOEXFileInfo *fileinfo, const char *fileid);
   */
 @_silgen_name("IOEX_get_file_info")
 internal func IOEX_get_file_info(_ carrier: OpaquePointer!,

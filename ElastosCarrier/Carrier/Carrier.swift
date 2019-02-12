@@ -20,6 +20,28 @@
  * SOFTWARE.
  */
 
+/*
+ * Copyright (c) 2018 ioeXNetwork
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+ 
 import Foundation
 
 @inline(__always) internal func getErrorCode() -> Int {
@@ -726,24 +748,11 @@ public class Carrier: NSObject {
         Log.d(Carrier.TAG, "Sended reply to friend invite request to \(target)")
     }
     
-    /**
-     KJ Test
-     */
-    ///    internal func IOEX_send_file_query(_ carrier: OpaquePointer!,
-    ///                                       _ friendid: UnsafePointer<Int8>!,
-    ///                                       _ filename: UnsafePointer<Int8>!,
-    ///                                       _ message: UnsafePointer<Int8>!) -> Int32
     public func SendFileQuery(carrier:Carrier, friendid:String, filename:String ,messeage:String ) -> Int32 {
     
         return IOEX_send_file_query(ccarrier, friendid, filename, messeage)
     }
     
-    
-    ///    internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
-    ///                                         fileid: UnsafePointer<Int8>!,
-    ///                                         id_len: Int,
-    ///                                         friendid: UnsafePointer<Int8>!,
-    ///                                         filename: UnsafePointer<Int8>!) -> Int32
     public func sendFileRequest(carrier: Carrier, friendid:String, filename:String) -> Int32 {
         let len = Carrier.MAX_ADDRESS_LEN + 1
         var data = Data(count: len);
@@ -756,98 +765,37 @@ public class Carrier: NSObject {
         print("==fileId===")
         return 0;
     }
-    
-    ///    internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
-    ///                                        _ fileid: UnsafePointer<Int8>!,
-    ///                                        _ filename: UnsafePointer<Int8>!,
-    ///                                        _ filepath: UnsafePointer<Int8>!) -> Int32
+
     public func sendFileAccept(carrier: Carrier, fileid:String, filename:String, filepath:String) -> Int32 {
         
         return IOEX_send_file_accept(ccarrier, fileid,filename,filepath)
     }
     
-    ///internal typealias CFilesIterateCallback = @convention(c)( UnsafeRawPointer?, UnsafeRawPointer?, UnsafeMutableRawPointer?) -> Bool
-    ///@_silgen_name("IOEX_get_files")
-    ///internal func IOEX_get_files(_ carrier: OpaquePointer!,
-    ///                             _ callback: CFriendInviteResponseCallback!,
-    ///                             _ context: UnsafeMutableRawPointer!) -> Int32
-    ///IOEXFilesIterateCallback(int direction, const IOEXFileInfo *info, void *context);
-    
-//    public func getFiles(carrier: Carrier, filename:String) -> Int32 {
-//        let cb: CFilesIterateCallback = {
-//            direction,fileInfo,context   in
-//            print("===direction = \(String(describing: direction))===")
-//            //            delegate?.didTSFileReceivedComplete(_FileName: String.init(cString: fileName!), _RealFileName: String.init(cString: realFileName!) )
-//            //            self.receivedCompleteEvent(fname: String.init(cString: fileName!), ofname: String.init(cString: realFileName!))
-//            return true
-//        }
-//
-//        return IOEX_get_files(ccarrier, cb, nil)
-//    }
-    
-    ///    @_silgen_name("IOEX_send_file_seek")
-    ///    internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
-    ///                                      fileid: UnsafePointer<Int8>!,
-    ///                                      _ position: UnsafePointer<Int8>!) -> Int32
     public func sendFileSeek(carrier: Carrier, fileid:String, position:String) -> Int32 {
         
         return IOEX_send_file_seek(ccarrier, fileid: fileid ,position)
     }
     
-    ///    internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
-    ///                                        fileid: UnsafePointer<Int8>!) -> Int32
     public func sendFileReject(carrier: Carrier, fileid:String) -> Int32 {
         
         return IOEX_send_file_reject(ccarrier, fileid: fileid)
     }
     
-    ///    internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
-    ///                                       fileid: UnsafePointer<Int8>!) -> Int32
     public func sendFilePause(carrier: Carrier, fileid:String) -> Int32 {
         
         return IOEX_send_file_pause(ccarrier, fileid: fileid)
     }
     
-    ///    internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
-    ///                                        fileid: UnsafePointer<Int8>!) -> Int32
     public func sendFileResume(carrier: Carrier, fileid:String) -> Int32 {
         
         return IOEX_send_file_resume(ccarrier, fileid:fileid)
     }
     
-    ///    internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
-    ///                                        fileid: UnsafePointer<Int8>!) -> Int32
     public func sendFileCancel(carrier: Carrier, fileid:String) -> Int32 {
         
         return IOEX_send_file_cancel(ccarrier,  fileid: fileid)
     }
     
-    ///    internal func IOEX_get_files(_ carrier: OpaquePointer!,
-    ///                                 _ callback: CFilesIterateCallback!,
-    ///                                 _ context: UnsafeMutableRawPointer!) -> Int32
-//    public func getFiles(carrier: Carrier, fileid:String) -> Int32 {
-//
-//        let cb: CFilesIterateCallback = { (cinfo, ctxt) in
-//            if cinfo != nil {
-//                let cFriendInfo = cinfo!.assumingMemoryBound(to: CFriendInfo.self).pointee
-//                let info = convertCFriendInfoToCarrierFriendInfo(cFriendInfo)
-//                ctxt!.assumingMemoryBound(to: [CarrierFriendInfo].self)
-//                    .pointee.append(info)
-//            }
-//            return true
-//        }
-//
-    //        var friends = [CarrierFriendInfo]()
-    //        let result = withUnsafeMutablePointer(to: &friends) { (ptr) -> Int32 in
-    //            let cctxt = UnsafeMutableRawPointer(ptr)
-    //            return IOEX_get_friends(ccarrier, cb, cctxt)
-    //        }
-//    }
-    
-    
-    ///    internal func IOEX_get_file_info(_ carrier: OpaquePointer!,
-    ///                                     _ fileinfo: CFileInfo!,
-    ///                                     _ fileid: UnsafePointer<Int8>!) -> Int32
     
     public func getFileInfo(carrier: Carrier, fileid:String) throws -> FileInfo {
         
