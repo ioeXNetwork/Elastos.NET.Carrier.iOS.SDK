@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-  
+
 /*
  * Copyright (c) 2019 ioeXNetwork
  *
@@ -42,40 +42,30 @@
  * SOFTWARE.
  */
 
-import Foundation
+@import Foundation;
+
+//! Project version number for ElastosCarrier.
+FOUNDATION_EXPORT double ElastosCarrierVersionNumber;
+
+//! Project version string for ElastosCarrier.
+FOUNDATION_EXPORT const unsigned char ElastosCarrierVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <ElastosCarrier/PublicHeader.h>
 
 /**
-    Carrier node connection status to carrier network.
+ The stream mode options.
+
+ - CarrierStreamOptionPlain: Plain mode
+ - CarrierStreamOptionReliable: Reliable mode
+ - CarrierStreamOptionMultiplexing: Multiplexing mode
+ - CarrierStreamOptionPortForwarding: Support portforwarding over multiplexing
  */
-@objc(ELACarrierConnectionStatus)
+typedef NS_OPTIONS (int, ELACarrierStreamOptions) {
+    ELACarrierStreamOptionCompress       = 0x01,
+    ELACarrierStreamOptionPlain          = 0x02,
+    ELACarrierStreamOptionReliable       = 0x04,
+    ELACarrierStreamOptionMultiplexing   = 0x08,
+    ELACarrierStreamOptionPortForwarding = 0x10,
+} NS_SWIFT_NAME(CarrierStreamOptions);
 
-public enum CarrierConnectionStatus : Int, CustomStringConvertible {
 
-    /// Carrier node connected to the network.
-    /// Indicate the node is online.
-    case Connected      = 0
-
-    /// There is no connection to the network.
-    /// Indicate the node is offline.
-    case Disconnected   = 1
-
-    internal static func format(_ connection: CarrierConnectionStatus) -> String {
-        var value : String
-
-        switch connection {
-        case Connected:
-            value = "Connected"
-        case Disconnected:
-            value = "Disconnected"
-        }
-        return value
-    }
-
-    public var description: String {
-        return CarrierConnectionStatus.format(self)
-    }
-}
-
-internal func convertCConnectionStatusToCarrierConnectionStatus(_ cstatus: Int32) -> CarrierConnectionStatus {
-    return CarrierConnectionStatus(rawValue: Int(cstatus))!
-}

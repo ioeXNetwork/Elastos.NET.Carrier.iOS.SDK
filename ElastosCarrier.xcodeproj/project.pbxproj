@@ -17,8 +17,6 @@
 		A3B497C12003736300420421 /* ElastosCarrier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B497B72003736200420421 /* ElastosCarrier.framework */; };
 		A3B497C62003736300420421 /* ElastosCarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497C52003736300420421 /* ElastosCarrierTests.swift */; };
 		A3B497C82003736300420421 /* ElastosCarrier.h in Headers */ = {isa = PBXBuildFile; fileRef = A3B497BA2003736300420421 /* ElastosCarrier.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A3B497D72003759400420421 /* ela_session.h in Headers */ = {isa = PBXBuildFile; fileRef = A3B497D52003759400420421 /* ela_session.h */; };
-		A3B497D82003759400420421 /* ela_carrier.h in Headers */ = {isa = PBXBuildFile; fileRef = A3B497D62003759400420421 /* ela_carrier.h */; };
 		A3B497E82003763600420421 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497DE2003763500420421 /* LogLevel.swift */; };
 		A3B497E92003763600420421 /* FriendInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497DF2003763500420421 /* FriendInfo.swift */; };
 		A3B497EB2003763600420421 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B497E12003763500420421 /* UserInfo.swift */; };
@@ -79,8 +77,6 @@
 		A3B497C02003736300420421 /* ElastosCarrierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElastosCarrierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B497C52003736300420421 /* ElastosCarrierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElastosCarrierTests.swift; sourceTree = "<group>"; };
 		A3B497C72003736300420421 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A3B497D52003759400420421 /* ela_session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ela_session.h; path = NativeDistributions/include/ela_session.h; sourceTree = "<group>"; };
-		A3B497D62003759400420421 /* ela_carrier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ela_carrier.h; path = NativeDistributions/include/ela_carrier.h; sourceTree = "<group>"; };
 		A3B497DE2003763500420421 /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogLevel.swift; path = Carrier/LogLevel.swift; sourceTree = "<group>"; };
 		A3B497DF2003763500420421 /* FriendInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendInfo.swift; path = Carrier/FriendInfo.swift; sourceTree = "<group>"; };
 		A3B497E12003763500420421 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserInfo.swift; path = Carrier/UserInfo.swift; sourceTree = "<group>"; };
@@ -210,8 +206,6 @@
 			children = (
 				A3B497F32003779300420421 /* CCarrier.swift */,
 				A3B497F22003779300420421 /* CSession.swift */,
-				A3B497D62003759400420421 /* ela_carrier.h */,
-				A3B497D52003759400420421 /* ela_session.h */,
 				819E3FD621644EE500C710BB /* IOEX_carrier.h */,
 				819E3FD521644EE500C710BB /* IOEX_session.h */,
 			);
@@ -299,9 +293,7 @@
 			files = (
 				819E3FD721644EE600C710BB /* IOEX_session.h in Headers */,
 				819E3FD821644EE600C710BB /* IOEX_carrier.h in Headers */,
-				A3B497D72003759400420421 /* ela_session.h in Headers */,
 				A3B497C82003736300420421 /* ElastosCarrier.h in Headers */,
-				A3B497D82003759400420421 /* ela_carrier.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
