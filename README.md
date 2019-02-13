@@ -72,4 +72,4 @@ We welcome contributions to the IOEX Carrier iOS Project (or Native Project) in 
 
 ## License
 
-IOEX Carrier iOS Project source code files are made available under the MIT License, located in the LICENSE file. 
+IOEX Carrier iOS Project source code files are made available under the GPLv3 License, located in the LICENSE file.
