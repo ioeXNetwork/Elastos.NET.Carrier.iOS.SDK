@@ -20,6 +20,28 @@
  * SOFTWARE.
  */
 
+ /*
+ * Copyright (c) 2019 ioeXNetwork
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 import Foundation
 
 // MARK: Creation & destruction
@@ -111,8 +133,8 @@ internal struct COptions {
  * \~English
  * Get the current version of Carrier node.
  */
-@_silgen_name("ela_get_version")
-internal func ela_get_version() -> UnsafePointer<Int8>!
+@_silgen_name("IOEX_get_version")
+internal func IOEX_get_version() -> UnsafePointer<Int8>!
 
 /**
  * \~English
@@ -341,6 +363,23 @@ internal struct CFriendInfo {
     init() {}
 }
 
+internal struct CFileInfo {
+    
+    /**
+     * \~English
+     * Friend's user information.
+     */
+    var file_name: (Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    
+    var file_path: (Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    
+    var friend_number: Int32 = 0
+    
+    var file_index: Int32 = 0
+    
+    init() {}
+}
+
 /**
  * \~English
  * Carrier callbacks, include all global callbacks for carrier.
@@ -542,11 +581,184 @@ internal struct CCallbacks {
      *      context     [in] The application defined context data.
      */
     var friend_invite: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
-
+    
     /**
-     *  KJ test
+     * \~English
+     * An application-defined function that process the file query request.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who send the file query request.
+     * @param
+     *      filename    [in] The name of file which is queried by the friend.
+     * @param
+     *      message     [in] Extra message sent by the friend.
+     * @param
+     *      context     [in] The application defined context data.
+    */
+    var file_queried: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    /**
+     * \~English
+     * An application-defined function that process the file send request.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who send the file send request.
+     * @param
+     *      fileindex   [in] The index of the file send by the friend.
+     * @param
+     *      filename    [in] The name of file which is requested to be sent from friend.
+     * @param
+     *      filesize    [in] The size of the file in bytes.
+     * @param
+     *      context     [in] The application defined context data.
+    */
+    var file_request: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,UnsafePointer<Int8>?,Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    /**
+     * \~English
+     * An application-defined function that process the control message from a friend.
+     * This control message indicates that the friend has accepted our previous send file request.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who accepted our send file request.
+     * @param
+     *      fileindex   [in] The index of the file that has been accepted.
+     * @param
+     *      context     [in] The application defined context data.
      */
-    var TSFile_ReceivedComplete_Callback: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
+    var file_accepted: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    
+    /**
+     * \~English
+     * An application-defined function that process the control message from a friend.
+     * This control message indicates that the friend has rejected our previous send file request.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who rejected our send file request.
+     * @param
+     *      fileindex   [in] The index of the file that has been rejected.
+     * @param
+     *      context     [in] The application defined context data.
+     */
+    var file_rejected: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,  UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    
+    /**
+     * \~English
+     * An application-defined function that process the control message from a friend.
+     * This control message indicates that the friend has paused one the currently transmitting file.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who paused the file transmission.
+     * @param
+     *      fileindex   [in] The index of the file that has been paused.
+     * @param
+     *      context     [in] The application defined context data.
+     */
+    var file_paused: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    /**
+     * \~English
+     * An application-defined function that process the control message from a friend.
+     * This control message indicates that the friend has resumed one the currently transmitting file.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who resumed the file transmission.
+     * @param
+     *      fileindex   [in] The index of the file that has been resumed.
+     * @param
+     *      context     [in] The application defined context data.
+    */
+    var file_resumed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    /**
+     * \~English
+     * An application-defined function that process the control message from a friend.
+     * This control message indicates that the friend has canceled one the currently transmitting file.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      friendid    [in] The user id from who canceled the file transmission.
+     * @param
+     *      fileindex   [in] The index of the file that has been canceled.
+     * @param
+     *      context     [in] The application defined context data.
+     */
+    var file_canceled: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    /**
+     * \~English
+     * An application-defined function that is called when file transmission is completed.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      fileid      [in] The unique id for this file transmission.
+     * @param
+     *      friendid    [in] The user id who participant this file transmission.
+     * @param
+     *      context     [in] The application defined context data.
+     */
+    var file_completed: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    /**
+     * \~English
+     * An application-defined function that is called when file transmission is aborted.
+     * File transmission abortion is usually caused by the disconnection of the friend.
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      fileid      [in] The unique id for this file transmission.
+     * @param
+     *      friendid    [in] The user id who participant this file transmission.
+     * @param
+     *      filename    [in] The name of the file that is transmitting.
+     * @param
+     *      length      [in] The length of the transmitted data in bytes.
+     * @param
+     *      filesize    [in] Total size of the file.
+     * @param
+     *      context     [in] The application defined context data.
+    */
+    var file_aborted:(@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,Int ,Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
+    
+    /**
+     * \~
+     * An application-defined function that serves as file transmission progress callback
+     *
+     * @param
+     *      carrier     [in] A handle to the Carrier node instance.
+     * @param
+     *      fileid      [in] The unique id for this file transmission.
+     * @param
+     *      friendid    [in] The user id who participant this file transmission.
+     * @param
+     *      fullpath    [in] The path with name of the local file.
+     * @param
+     *      size        [in] The total size in byte of this file.
+     * @param
+     *      transferred [in] The transferred size in byte of this file.
+     * @param
+     *      context     [in] The application defined context data.
+     */
+    var file_progress: (@convention(c)(OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?,  UnsafePointer<Int8>?, UInt64, UInt64, UnsafeMutableRawPointer?) -> Swift.Void)!
+    
     init() {}
 }
 
@@ -564,8 +776,9 @@ internal struct CCallbacks {
  * @param
  *      log_printer [in] the user defined log printer. can be NULL.
  */
-@_silgen_name("ela_log_init")
-internal func ela_log_init(_ level: CLogLevel,
+
+@_silgen_name("IOEX_log_init")
+internal func IOEX_log_init(_ level: CLogLevel,
                            _ log_file: UnsafePointer<Int8>!,
                            _ log_printer: (/*@convention(c)*/ (UnsafePointer<Int8>?, CVaListPointer?) -> Swift.Void)!)
 
@@ -579,8 +792,8 @@ internal func ela_log_init(_ level: CLogLevel,
  * @return
  *      true if address is valid, or false if address is not valid.
  */
-@_silgen_name("ela_address_is_valid")
-internal func ela_address_is_valid(_ address: UnsafePointer<Int8>!) ->Bool
+@_silgen_name("IOEX_address_is_valid")
+internal func IOEX_address_is_valid(_ address: UnsafePointer<Int8>!) ->Bool
 
 /**
  * \~English
@@ -592,8 +805,8 @@ internal func ela_address_is_valid(_ address: UnsafePointer<Int8>!) ->Bool
  * @return
  *      true if id is valid, or false if id is not valid.
  */
-@_silgen_name("ela_id_is_valid")
-internal func ela_id_is_valid(_ id: UnsafePointer<Int8>!) -> Bool
+@_silgen_name("IOEX_id_is_valid")
+internal func IOEX_id_is_valid(_ id: UnsafePointer<Int8>!) -> Bool
 
 
 /**
@@ -611,10 +824,10 @@ internal func ela_id_is_valid(_ id: UnsafePointer<Int8>!) -> Bool
  * @return
  *      If no error occurs, return the pointer of Carrier node instance.
  *      Otherwise, return NULL, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_new")
-internal func ela_new(_ options: UnsafePointer<COptions>!,
+@_silgen_name("IOEX_new")
+internal func IOEX_new(_ options: UnsafePointer<COptions>!,
                       _ callbacks: UnsafeMutablePointer<CCallbacks>!,
                       _ context: UnsafeMutableRawPointer!) -> OpaquePointer!
 
@@ -630,8 +843,8 @@ internal func ela_new(_ options: UnsafePointer<COptions>!,
  *      carrier     [in] A handle identifying the Carrier node instance
  *                       to kill.
  */
-@_silgen_name("ela_kill")
-internal func ela_kill(_ carrier: OpaquePointer!)
+@_silgen_name("IOEX_kill")
+internal func IOEX_kill(_ carrier: OpaquePointer!)
 
 // MARK: - Connection & event loop
 
@@ -640,7 +853,7 @@ internal func ela_kill(_ carrier: OpaquePointer!)
  * Attempts to connect the node to Carrier network. If the node successfully
  * connects to Carrier network, then it starts the node's main event loop.
  * The connect options was specified by previously create options.
- * @see ela_new().
+ * @see IOEX_new().
  *
  * @param
  *      carrier     [in] A handle identifying the Carrier node instance.
@@ -650,10 +863,10 @@ internal func ela_kill(_ carrier: OpaquePointer!)
  * @return
  *      0 if the node successfully connected to Carrier network and start the
  *      event loop. Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_run")
-internal func ela_run(_ carrier: OpaquePointer!, _ interval: Int32) -> Int32
+@_silgen_name("IOEX_run")
+internal func IOEX_run(_ carrier: OpaquePointer!, _ interval: Int32) -> Int32
 
 // MARK: - Internal node information
 
@@ -666,15 +879,15 @@ internal func ela_run(_ carrier: OpaquePointer!, _ interval: Int32) -> Int32
  * @param
  *      address     [out] The buffer that will receive the address.
  *                        The buffer size should at least
- *                        (ELA_MAX_ADDRESS_LEN + 1) bytes.
+ *                        (IOEX_MAX_ADDRESS_LEN + 1) bytes.
  * @param
  *      len         [in] The buffer size of address.
  *
  * @return
  *      The address string pointer, or NULL if buffer is too small.
  */
-@_silgen_name("ela_get_address")
-internal func ela_get_address(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_address")
+internal func IOEX_get_address(_ carrier: OpaquePointer!,
                               _ address: UnsafeMutablePointer<Int8>!,
                               _ len: Int) -> UnsafeMutablePointer<Int8>!
 
@@ -687,15 +900,15 @@ internal func ela_get_address(_ carrier: OpaquePointer!,
  * @param
  *      nodeid      [out] The buffer that will receive the identifier.
  *                        The buffer size should at least
- *                        (ELA_MAX_ID_LEN + 1) bytes.
+ *                        (IOEX_MAX_ID_LEN + 1) bytes.
  * @param
  *      len         [in] The buffer size of nodeid.
  *
  * @return
  *      The nodeId string pointer, or NULL if buffer is too small.
  */
-@_silgen_name("ela_get_nodeid")
-internal func ela_get_nodeid(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_nodeid")
+internal func IOEX_get_nodeid(_ carrier: OpaquePointer!,
                              _ nodeid: UnsafeMutablePointer<Int8>!,
                              _ len: Int) -> UnsafeMutablePointer<Int8>!
 
@@ -708,15 +921,15 @@ internal func ela_get_nodeid(_ carrier: OpaquePointer!,
  * @param
  *      userid      [out] The buffer that will receive the identifier.
  *                        The buffer size should at least
- *                        (ELA_MAX_ID_LEN + 1) bytes.
+ *                        (IOEX_MAX_ID_LEN + 1) bytes.
  * @param
  *      len         [in] The buffer size of userid.
  *
  * @return
  *      The userId string pointer, or NULL if buffer is too small.
  */
-@_silgen_name("ela_get_userid")
-internal func ela_get_userid(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_userid")
+internal func IOEX_get_userid(_ carrier: OpaquePointer!,
                              _ userid: UnsafeMutablePointer<Int8>!,
                              _ len: Int) -> UnsafeMutablePointer<Int8>!
 
@@ -737,10 +950,10 @@ internal func ela_get_userid(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_set_self_nospam")
-internal func ela_set_self_nospam(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_set_self_nospam")
+internal func IOEX_set_self_nospam(_ carrier: OpaquePointer!,
                                   _ nospam: UInt32) -> Int32
 
 /**
@@ -757,10 +970,10 @@ internal func ela_set_self_nospam(_ carrier: OpaquePointer!,
  *      nospam      [in] An unsigned integer pointer to receive nospam value.
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_get_self_nospam")
-internal func ela_get_self_nospam(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_self_nospam")
+internal func IOEX_get_self_nospam(_ carrier: OpaquePointer!,
                                   _ nospam: UnsafeMutablePointer<UInt32>!) -> Int32
 /**
  * \~English
@@ -777,10 +990,10 @@ internal func ela_get_self_nospam(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_set_self_info")
-internal func ela_set_self_info(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_set_self_info")
+internal func IOEX_set_self_info(_ carrier: OpaquePointer!,
                                 _ info: UnsafePointer<CUserInfo>!) -> Int32
 /**
  * \~English
@@ -793,10 +1006,10 @@ internal func ela_set_self_info(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_get_self_info")
-internal func ela_get_self_info(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_self_info")
+internal func IOEX_get_self_info(_ carrier: OpaquePointer!,
                                 _ info: UnsafeMutablePointer<CUserInfo>!) -> Int32
 
 /**
@@ -810,10 +1023,10 @@ internal func ela_get_self_info(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_set_self_presence")
-internal func ela_set_self_presence(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_set_self_presence")
+internal func IOEX_set_self_presence(_ carrier: OpaquePointer!,
                                     _ status: CPresenceStatus) -> Int32
 /**
  * \~English
@@ -826,10 +1039,10 @@ internal func ela_set_self_presence(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_get_self_presence")
-internal func ela_get_self_presence(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_self_presence")
+internal func IOEX_get_self_presence(_ carrier: OpaquePointer!,
                                     _ status: UnsafeMutablePointer<CPresenceStatus>) -> Int32
 
 /**
@@ -845,8 +1058,8 @@ internal func ela_get_self_presence(_ carrier: OpaquePointer!,
  * @return
  *      true if the carrier node instance is ready, or false if not.
  */
-@_silgen_name("ela_is_ready")
-internal func  ela_is_ready(_ carrier: OpaquePointer!) -> Bool
+@_silgen_name("IOEX_is_ready")
+internal func  IOEX_is_ready(_ carrier: OpaquePointer!) -> Bool
 
 
 // MARK: - Friend information
@@ -884,10 +1097,10 @@ internal typealias CFriendsIterateCallback = @convention(c)
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_get_friends")
-internal func ela_get_friends(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_friends")
+internal func IOEX_get_friends(_ carrier: OpaquePointer!,
                               _ callback: CFriendsIterateCallback!,
                               _ context: UnsafeMutableRawPointer!) -> Int32
 
@@ -905,10 +1118,10 @@ internal func ela_get_friends(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_get_friend_info")
-internal func ela_get_friend_info(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_get_friend_info")
+internal func IOEX_get_friend_info(_ carrier: OpaquePointer!,
                                   _ friendid: UnsafePointer<Int8>!,
                                   _ info: UnsafeMutablePointer<CFriendInfo>!) -> Int32
 
@@ -927,14 +1140,14 @@ internal func ela_get_friend_info(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 on success, or -1 if an error occurred. The specific error code
- *      can be retrieved by calling ela_get_error().
+ *      can be retrieved by calling IOEX_get_error().
  *
  * @remarks
  *      The label of a friend is a private alias named by yourself. It can be
  *      seen by yourself only, and has no impact to the target friend.
  */
-@_silgen_name("ela_set_friend_label")
-internal func ela_set_friend_label(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_set_friend_label")
+internal func IOEX_set_friend_label(_ carrier: OpaquePointer!,
                                    _ friendid: UnsafePointer<Int8>!,
                                    _ label: UnsafePointer<Int8>!) -> Int32
 
@@ -950,8 +1163,8 @@ internal func ela_set_friend_label(_ carrier: OpaquePointer!,
  * @return
  *      true if the user id is friend, or false if not;
  */
-@_silgen_name("ela_is_friend")
-internal func ela_is_friend(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_is_friend")
+internal func IOEX_is_friend(_ carrier: OpaquePointer!,
                             _ userid: UnsafePointer<Int8>!) -> Bool
 
 
@@ -974,10 +1187,10 @@ internal func ela_is_friend(_ carrier: OpaquePointer!,
  *
  * @return
  *      0 if adding friend is successful. Otherwise, return -1, and a specific
- *      error code can be retrieved by calling ela_get_error().
+ *      error code can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_add_friend")
-internal func ela_add_friend(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_add_friend")
+internal func IOEX_add_friend(_ carrier: OpaquePointer!,
                              _ userid: UnsafePointer<Int8>!,
                              _ hello: UnsafePointer<Int8>!) -> Int32
 
@@ -995,10 +1208,10 @@ internal func ela_add_friend(_ carrier: OpaquePointer!,
  * @return
  *      0 if adding friend successfully.
  *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_accept_friend")
-internal func ela_accept_friend(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_accept_friend")
+internal func IOEX_accept_friend(_ carrier: OpaquePointer!,
                                 _ userid: UnsafePointer<Int8>!) -> Int32
 
 /**
@@ -1018,10 +1231,10 @@ internal func ela_accept_friend(_ carrier: OpaquePointer!,
  * @return
  *      0 if the indicator successfully sent.
  *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_remove_friend")
-internal func ela_remove_friend(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_remove_friend")
+internal func IOEX_remove_friend(_ carrier: OpaquePointer!,
                                 _ friendid: UnsafePointer<Int8>!) -> Int32
 
 
@@ -1031,7 +1244,7 @@ internal func ela_remove_friend(_ carrier: OpaquePointer!,
  * \~English
  * Send a message to a friend.
  *
- * The message length may not exceed ELA_MAX_APP_MESSAGE_LEN, and message
+ * The message length may not exceed IOEX_MAX_APP_MESSAGE_LEN, and message
  * itself should be text-formatted. Larger messages must be split by application
  * and sent as separate messages. Other carrier nodes can reassemble the
  * fragments.
@@ -1049,10 +1262,10 @@ internal func ela_remove_friend(_ carrier: OpaquePointer!,
  * @return
  *      0 if the text message successfully sent.
  *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_send_friend_message")
-internal func ela_send_friend_message(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_send_friend_message")
+internal func IOEX_send_friend_message(_ carrier: OpaquePointer!,
                                       _ to: UnsafePointer<Int8>!,
                                       _ msg: UnsafePointer<Int8>!,
                                       _ len: Int) -> Int32
@@ -1107,10 +1320,10 @@ internal typealias CFriendInviteResponseCallback = @convention(c)
  * @return
  *      0 if the invite request successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_invite_friend")
-internal func ela_invite_friend(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_invite_friend")
+internal func IOEX_invite_friend(_ carrier: OpaquePointer!,
                                 _ to: UnsafePointer<Int8>!,
                                 _ data: UnsafePointer<Int8>!,
                                 _ len: Int,
@@ -1143,16 +1356,242 @@ internal func ela_invite_friend(_ carrier: OpaquePointer!,
  * @return
  *      0 if the invite response successfully send to the friend.
  *      Otherwise, return -1, and a specific error code can be
- *      retrieved by calling ela_get_error().
+ *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("ela_reply_friend_invite")
-internal func ela_reply_friend_invite(_ carrier: OpaquePointer!,
+@_silgen_name("IOEX_reply_friend_invite")
+internal func IOEX_reply_friend_invite(_ carrier: OpaquePointer!,
                                       _ to: UnsafePointer<Int8>!,
                                       _ status: Int32,
                                       _ reason: UnsafePointer<Int8>!,
                                       _ data: UnsafePointer<Int8>!,
                                       _ len: Int) -> Int32
-// MARK: - Error handling
+
+/******************************************************************************
+ * File transmitting
+ *****************************************************************************/
+
+/**
+ * \~English
+ * An application-defined function that iterate the each file transmission.
+ *
+ * IOEXFilesIterateCallback is the callback function type.
+ *
+ * @param
+ *      info        [in] A pointer to IOEXTrackerInfo structure that
+ *                       representing a file transmission.
+ * @param
+ *      context     [in] The application defined context data.
+ *
+ * @return
+ *      Return true to continue iterate next file info,
+ *      false to stop iterate.
+typedef bool IOEXFilesIterateCallback(int direction, const IOEXTrackerInfo *info, void *context);
+ */
+internal typealias CFilesIterateCallback = @convention(c)( UnsafeRawPointer?, UnsafeRawPointer?, UnsafeMutableRawPointer?) -> Bool
+
+/**
+ * \~English
+ * An application-defined function that process the file query request.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      friendid    [in] The user id whom we send the file query to.
+ * @param
+ *      filename    [in] The name of file we are querying for.
+ * @param
+ *      message     [in] Extra message we sent to friend.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+*/
+@_silgen_name("IOEX_send_file_query")
+internal func IOEX_send_file_query(_ carrier: OpaquePointer!,
+                                     _ friendid: UnsafePointer<Int8>!,
+                                     _ filename: UnsafePointer<Int8>!,
+                                     _ message: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that process the file send request.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [out] The buffer that used to store base58 encoded file id.
+ *                        The size of the buffer should >= IOEX_MAX_ID_LEN (45).
+ * @param
+ *      id_len      [in] Size of the fileid buffer. It should >= IOEX_MAX_ID_LEN (45)
+ * @param
+ *      friendid    [in] The user id whom we send the file send request to.
+ * @param
+ *      filename    [in] The name of file which is requested to be sent from friend.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+  */
+@_silgen_name("IOEX_send_file_request")
+internal func IOEX_send_file_request(_ carrier: OpaquePointer!,
+                                       fileid: UnsafeMutablePointer<Int8>!,
+                                       id_len: Int,
+                                       friendid: UnsafePointer<Int8>!,
+                                       filename: UnsafePointer<Int8>!) -> UnsafeMutablePointer<Int8>!
+
+/**
+ * \~English
+ * An application-defined function that accepts a file send request.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be accepted.
+ * @param
+ *      filename    [in] Rename the file as filename.
+ * @param
+ *      filepath    [in] The path to store the file.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+*/
+@_silgen_name("IOEX_send_file_accept")
+internal func IOEX_send_file_accept(_ carrier: OpaquePointer!,
+                                     _ fileid: UnsafePointer<Int8>!,
+                                     _ filename: UnsafePointer<Int8>!,
+                                     _ filepath: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that sends file seek control.
+ * This function must be called right after the file request is received, and before sending accept.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be seeked.
+ * @param
+ *      position    [in] The start position of the file that should be sent.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+ */
+@_silgen_name("IOEX_send_file_seek")
+internal func IOEX_send_file_seek(_ carrier: OpaquePointer!,
+                                    fileid: UnsafePointer<Int8>!,
+                                  _ position: UnsafePointer<Int8>!) -> Int32
+
+
+/**
+ * \~English
+ * An application-defined function that rejects a file send request.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be rejected.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+  */
+@_silgen_name("IOEX_send_file_reject")
+internal func IOEX_send_file_reject(_ carrier: OpaquePointer!,
+                                       fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that pause a file transmission.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be paused.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+ */
+@_silgen_name("IOEX_send_file_pause")
+internal func IOEX_send_file_pause(_ carrier: OpaquePointer!,
+                                    fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that resume a file transmission.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be resumed.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+ */
+@_silgen_name("IOEX_send_file_resume")
+internal func IOEX_send_file_resume(_ carrier: OpaquePointer!,
+                                   fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that cancels a file transmission.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileid      [in] The unique id of the file that will be canceled.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+ */
+@_silgen_name("IOEX_send_file_cancel")
+internal func IOEX_send_file_cancel(_ carrier: OpaquePointer!,
+                                    fileid: UnsafePointer<Int8>!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that iteratively get file info.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      callback    [in] The iteration callback that will be called.
+ * @param
+ *      context     [in] The application defined context data.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+*/
+@_silgen_name("IOEX_get_files")
+internal func IOEX_get_files(_ carrier: OpaquePointer!,
+                             _ callback: CFilesIterateCallback!,
+                             _ context: UnsafeMutableRawPointer!) -> Int32
+
+/**
+ * \~English
+ * An application-defined function that get file info.
+ *
+ * @param
+ *      carrier     [in] A handle to the Carrier node instance.
+ * @param
+ *      fileinfo    [out] The buffer to store the file transmission info.
+ * @param`
+ *      fileid      [in] The unique id of the file transmission.
+ * @return
+ *      0 if the request successfully send to the friend.
+ *      Otherwise, return -1, and a specific error code can be
+ *      retrieved by calling IOEX_get_error().
+  */
+@_silgen_name("IOEX_get_file_info")
+internal func IOEX_get_file_info(_ carrier: OpaquePointer!,
+                             _ fileinfo: UnsafeMutablePointer<CFileInfo>!,
+                             _ fileid: UnsafePointer<Int8>!) -> Int32
+ // MARK: - Error handling
 
 /*
  * \~English
@@ -1163,34 +1602,12 @@ internal func ela_reply_friend_invite(_ carrier: OpaquePointer!,
  * @return
  *      The return value is the last-error code.
  */
-@_silgen_name("ela_get_error")
-internal func ela_get_error() -> Int32
+@_silgen_name("IOEX_get_error")
+internal func IOEX_get_error() -> Int32
 
 /**
  * \~English
  * Clear the last-error code of a Carrier instance.
  */
-@_silgen_name("ela_clear_error")
-internal func ela_clear_error()
-
-/**
- KJ test
- */
-
-@_silgen_name("IOEX_TSFile_Init")
-internal func IOEX_TSFile_Init(_ carrier: OpaquePointer!, path:UnsafePointer<Int8>!) -> Int32
-
-@_silgen_name("IOEX_TSFile_Request")
-internal func IOEX_TSFile_Request(_ carrier: OpaquePointer!,
-                                    address:UnsafePointer<Int8>!,
-                                    filename:UnsafePointer<Int8>!,
-                                    start_byte:Int) -> Int32
-
-
-
-internal typealias CReceivedComplete = @convention(c)
-    (UnsafePointer<Int8>?, UnsafePointer<Int8>?) -> Swift.Void
-
-@_silgen_name("IOEX_TSFile_ReceivedComplete_Callback")
-internal func IOEX_TSFile_ReceivedComplete_Callback(  carrier: OpaquePointer!,
-                                                    _ callback: CReceivedComplete!)-> Int32
+@_silgen_name("IOEX_clear_error")
+internal func IOEX_clear_error()

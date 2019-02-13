@@ -1,27 +1,5 @@
 /*
- * Copyright (c) 2018 Elastos Foundation
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-  
-/*
- * Copyright (c) 2019 ioeXNetwork
+ * 
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,124 +20,193 @@
  * SOFTWARE.
  */
 
-import Foundation
+#ifndef __IOEX_SESSION_H__
+#define __IOEX_SESSION_H__
+
+#include <stddef.h>
+#include <stdbool.h>
+#include <sys/types.h>
+
+#include <IOEX_carrier.h>
+
+#if defined(__APPLE__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdocumentation"
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define IOEX_MAX_IP_STRING_LEN   45
+
+#define IOEX_MAX_USER_DATA_LEN   2048
+
+typedef struct IOEXSession IOEXSession;
 
 /**
  * \~English
- * carrier stream types definition.
+ * Carrier stream types definition.
  * Reference:
  *      https://tools.ietf.org/html/rfc4566#section-5.14
  *      https://tools.ietf.org/html/rfc4566#section-8
+ *
  */
-internal struct CStreamType : RawRepresentable, Equatable {
-
-    init(_ rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    init(rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    var rawValue: UInt32
-}
+typedef enum IOEXStreamType {
+    /**
+     * \~English
+     *  Audio stream.
+     */
+    IOEXStreamType_audio = 0,
+    /**
+     * \~English
+     *  Video stream.
+     */
+    IOEXStreamType_video,
+    /**
+     * \~English
+     *  Text stream.
+     */
+    IOEXStreamType_text,
+    /**
+     * \~English
+     *  Application stream.
+     */
+    IOEXStreamType_application,
+    /**
+     * \~English
+     *  Message stream.
+     */
+    IOEXStreamType_message
+} IOEXStreamType;
 
 /**
  * \~English
- *  Audio stream.
+ * Stream address type.
  */
-internal var CStreamType_audio: CStreamType { get { return CStreamType(0) } }
+typedef enum IOEXCandidateType {
+    /**
+     * \~English
+     * The address is host local address.
+     */
+    IOEXCandidateType_Host,
+    /**
+     * \~English
+     * The address is server reflexive address.
+     */
+    IOEXCandidateType_ServerReflexive,
+    /**
+     * \~English
+     * The address is peer reflexive address.
+     */
+    IOEXCandidateType_PeerReflexive,
+    /**
+     * \~English
+     * The address is relayed address.
+     */
+    IOEXCandidateType_Relayed,
+} IOEXCandidateType;
+
 /**
  * \~English
- *  Video stream.
+ * Peers network topology type.
  */
-internal var CStreamType_video: CStreamType { get { return CStreamType(1) } }
+typedef enum IOEXNetworkTopology {
+    /**
+     * \~English
+     * The stream peers is in LAN, using direct connection.
+     */
+    IOEXNetworkTopology_LAN,
+    /**
+     * \~English
+     * The stream peers behind NAT, using P2P direct connection.
+     */
+    IOEXNetworkTopology_P2P,
+    /**
+     * \~English
+     * The stream peers behind NAT, using relayed connection.
+     */
+    IOEXNetworkTopology_RELAYED,
+} IOEXNetworkTopology;
+
 /**
  * \~English
- *  Text stream.
+ * Carrier stream address information.
  */
-internal var CStreamType_text: CStreamType { get { return CStreamType(2) } }
+typedef struct IOEXAddressInfo {
+    /**
+     * \~English
+     * The candidate address type.
+     */
+    IOEXCandidateType type;
+    /**
+     * \~English
+     * The IP/host of the address.
+     */
+    char addr[IOEX_MAX_IP_STRING_LEN + 1];
+    /**
+     * \~English
+     * The port of the address.
+     */
+    int port;
+    /**
+     * \~English
+     * The IP/host of the related address.
+     */
+    char related_addr[IOEX_MAX_IP_STRING_LEN + 1];
+    /**
+     * \~English
+     * The port of the related address.
+     */
+    int related_port;
+} IOEXAddressInfo;
+
 /**
  * \~English
- *  Application stream.
+ * Carrier stream transport information.
  */
-internal var CStreamType_application: CStreamType { get { return CStreamType(3) } }
+typedef struct IOEXTransportInfo {
+    /**
+     * \~English
+     * The network topology type: LAN, P2P or relayed.
+     */
+    IOEXNetworkTopology topology;
+    /**
+     * \~English
+     * The local address information.
+     */
+    IOEXAddressInfo local;
+    /**
+     * \~English
+     * The remote address information.
+     */
+    IOEXAddressInfo remote;
+} IOEXTransportInfo;
+
+/* Global session APIs */
+
 /**
- * \~English
- *  Message stream.
+ *\~English
+ * Make initialization on Android platform.
+ *
+ * @return
+ *      true if initialization succeeded, or false if not.
  */
-internal var CStreamType_message: CStreamType { get { return CStreamType(4) } }
-
-internal struct CCandidateType : RawRepresentable, Equatable {
-
-    init(_ rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    init(rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    var rawValue: UInt32
-}
-
-internal var CCandidateType_Host: CCandidateType { get { return CCandidateType(0) } }
-internal var CCandidateType_ServerReflexive: CCandidateType { get { return CCandidateType(1) } }
-internal var CCandidateType_PeerReflexive: CCandidateType { get { return CCandidateType(2) } }
-internal var CCandidateType_Relayed: CCandidateType { get { return CCandidateType(3) } }
-
-internal struct CNetworkTopology : RawRepresentable, Equatable {
-
-    init(_ rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    init(rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    var rawValue: UInt32
-}
-internal var CNetworkTopology_LAN: CNetworkTopology { get { return CNetworkTopology(0) } }
-internal var CNetworkTopology_P2P: CNetworkTopology { get { return CNetworkTopology(1) } }
-internal var CNetworkTopology_RELAYED: CNetworkTopology { get { return CNetworkTopology(2) } }
-
-internal struct CAddressInfo {
-
-    var type: CCandidateType = CCandidateType_Host
-
-    var addr: (Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-    var port: Int32 = 0
-
-    var related_addr: (Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8, Int8) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-    var related_port: Int32 = 0
-
-    init() {}
-}
-
-internal struct CTransportInfo {
-
-    var topology: CNetworkTopology = CNetworkTopology_LAN
-
-    var local: CAddressInfo = CAddressInfo()
-
-    var remote: CAddressInfo = CAddressInfo()
-
-    init() {}
-}
+#if defined(__ANDROID__)
+CARRIER_API
+bool IOEX_session_jni_onload(void *vm, void *reserved);
+#endif
 
 /**
  * \~English
  * An application-defined function that handle session requests.
  *
- * ElaSessionRequestCallback is the callback function type.
+ * IOEXSessionRequestCallback is the callback function type.
  *
  * @param
- *      carrier     [in] A handle to the ElaCarrier node instance.
+ *      carrier     [in] A handle to the IOEXCarrier node instance.
  * @param
- *      from        [in] The id(userid@nodeid) from who send the message.
+ *      from        [in] The id from who send the message.
  * @param
  *      sdp         [in] The remote users SDP. End the null terminal.
  *                       Reference: https://tools.ietf.org/html/rfc4566
@@ -168,8 +215,8 @@ internal struct CTransportInfo {
  * @param
  *      context     [in] The application defined context data.
  */
-internal typealias CSessionRequestCallback = @convention(c)
-    (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, Int, UnsafeMutableRawPointer?) -> Swift.Void
+typedef void IOEXSessionRequestCallback(IOEXCarrier *carrier, const char *from,
+        const char *sdp, size_t len, void *context);
 
 /**
  * \~English
@@ -181,10 +228,8 @@ internal typealias CSessionRequestCallback = @convention(c)
  * @param
  *      carrier     [in] A handle to the Carrier node instance.
  * @param
- *      options     [in] A pointer to a valid ElaSessionOptions structure.
- * @param
  *      callback    [in] A pointer to the application-defined function of type
- *                       ElaSessionRequestCallback.
+ *                       IOEXSessionRequestCallback.
  * @param
  *      context     [in] The application defined context data.
  *
@@ -192,10 +237,9 @@ internal typealias CSessionRequestCallback = @convention(c)
  *      0 on success, or -1 if an error occurred. The specific error code
  *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("IOEX_session_init")
-internal func IOEX_session_init(_ carrier: OpaquePointer!,
-                               _ callback: CSessionRequestCallback!,
-                               _ context: UnsafeMutableRawPointer!) -> Int32
+CARRIER_API
+int IOEX_session_init(IOEXCarrier *carrier,
+                IOEXSessionRequestCallback *callback, void *context);
 
 /**
  * \~English
@@ -209,9 +253,8 @@ internal func IOEX_session_init(_ carrier: OpaquePointer!,
  * @param
  *      carrier [in] A handle to the carrier node instance.
  */
-@_silgen_name("IOEX_session_cleanup")
-internal func IOEX_session_cleanup(_ carrier: OpaquePointer!)
-
+CARRIER_API
+void IOEX_session_cleanup(IOEXCarrier *carrier);
 
 /**
  * \~English
@@ -225,13 +268,12 @@ internal func IOEX_session_cleanup(_ carrier: OpaquePointer!)
  *      address     [in] The target address.
  *
  * @return
- *      If no error occurs, return the pointer of ElaSession object.
+ *      If no error occurs, return the pointer of IOEXSession object.
  *      Otherwise, return NULL, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("IOEX_session_new")
-internal func IOEX_session_new(_ carrier: OpaquePointer!,
-                              _ address: UnsafePointer<Int8>!) -> OpaquePointer!
+CARRIER_API
+IOEXSession *IOEX_session_new(IOEXCarrier *carrier, const char *address);
 
 /**
  * \~English
@@ -241,12 +283,12 @@ internal func IOEX_session_new(_ carrier: OpaquePointer!,
  * @param
  *      session     [in] A handle to the carrier session.
  */
-@_silgen_name("IOEX_session_close")
-internal func IOEX_session_close(_ session: OpaquePointer!)
+CARRIER_API
+void IOEX_session_close(IOEXSession *session);
 
 /**
  * \~English
- * Get the remote peer id (userid or userid@nodeid) of the session.
+ * Get the remote peer's address of the session.
  *
  * @param
  *      session     [in] A handle to the carrier session.
@@ -260,10 +302,8 @@ internal func IOEX_session_close(_ session: OpaquePointer!)
  * @return
  *      The remote peer string address, or NULL if buffer is too small.
  */
-@_silgen_name("IOEX_session_get_peer")
-internal func IOEX_session_get_peer(_ session: OpaquePointer!,
-                                   _ address: UnsafePointer<Int8>!,
-                                   _ len: Int) -> UnsafePointer<Int8>!
+CARRIER_API
+char *IOEX_session_get_peer(IOEXSession *session, char *address, size_t len);
 
 /**
  * \~English
@@ -274,9 +314,9 @@ internal func IOEX_session_get_peer(_ session: OpaquePointer!,
  * @param
  *      userdata    [in] Arbitary user data to be associated with this session.
  */
-@_silgen_name("IOEX_session_set_userdata")
-internal func IOEX_session_set_userdata(_ session: OpaquePointer!,
-                             _ userdata: UnsafeMutableRawPointer!) -> Swift.Void
+CARRIER_API
+void IOEX_session_set_userdata(IOEXSession *session, void *userdata);
+
 /**
  * \~English
  * Get the user data associated with the session.
@@ -287,18 +327,18 @@ internal func IOEX_session_set_userdata(_ session: OpaquePointer!,
  * @return
  *      The user data associated with session.
  */
-@_silgen_name("IOEX_session_get_userdata")
-internal func IOEX_session_get_userdata(_ session: OpaquePointer!) -> UnsafeMutableRawPointer!
+CARRIER_API
+void *IOEX_session_get_userdata(IOEXSession *session);
 
 /**
  * \~English
  * An application-defined function that receive session request complete
  * event.
  *
- * ElaSessionRequestCompleteCallback is the callback function type.
+ * IOEXSessionRequestCompleteCallback is the callback function type.
  *
  * @param
- *      session     [in] A handle to the ElaSession.
+ *      session     [in] A handle to the IOEXSession.
  * @param
  *      status      [in] The status code of the response.
  *                       0 is success, otherwise is error.
@@ -312,17 +352,17 @@ internal func IOEX_session_get_userdata(_ session: OpaquePointer!) -> UnsafeMuta
  * @param
  *      context     [in] The application defined context data.
  */
-internal typealias CSessionRequestCompleteCallback = @convention(c)
-    (OpaquePointer?, Int32, UnsafePointer<Int8>?, UnsafePointer<Int8>?, Int, UnsafeMutableRawPointer?) -> Swift.Void
+typedef void IOEXSessionRequestCompleteCallback(IOEXSession *session, int status,
+        const char *reason, const char *sdp, size_t len, void *context);
 
 /**
  * \~English
  * Send session request to the friend.
  *
  * @param
- *      session     [in] A handle to the ElaSession.
+ *      session     [in] A handle to the IOEXSession.
  * @param
- *      callback    [in] A pointer to ElaSessionRequestCompleteCallback
+ *      callback    [in] A pointer to IOEXSessionRequestCompleteCallback
  *                       function to receive the session response.
  * @param
  *      context      [in] The application defined context data.
@@ -332,10 +372,9 @@ internal typealias CSessionRequestCompleteCallback = @convention(c)
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("IOEX_session_request")
-internal func IOEX_session_request(_ session: OpaquePointer!,
-                                  _ callback: CSessionRequestCompleteCallback!,
-                                  _ context: UnsafeMutableRawPointer!) -> Int32
+CARRIER_API
+int IOEX_session_request(IOEXSession *session,
+        IOEXSessionRequestCompleteCallback *callback, void *context);
 
 /**
  * \~English
@@ -344,7 +383,7 @@ internal func IOEX_session_request(_ session: OpaquePointer!,
  * This function will send a session response to friend.
  *
  * @param
- *      session     [in] A handle to the ElaSession.
+ *      session     [in] A handle to the IOEXSession.
  * @param
  *      status      [in] The status code of the response.
  *                       0 is success, otherwise is error.
@@ -357,10 +396,9 @@ internal func IOEX_session_request(_ session: OpaquePointer!,
  *      Otherwise, return -1, and a specific error code can be
  *      retrieved by calling IOEX_get_error().
  */
-@_silgen_name("IOEX_session_reply_request")
-internal func IOEX_session_reply_request(_ session: OpaquePointer!,
-                                        _ status: Int32,
-                                        _ reason: UnsafePointer<Int8>!) -> Int32
+CARRIER_API
+int IOEX_session_reply_request(IOEXSession *session, int status,
+        const char* reason);
 
 /**
  * \~English
@@ -370,7 +408,7 @@ internal func IOEX_session_reply_request(_ session: OpaquePointer!,
  * the stream status will update to application by stream's callbacks.
  *
  * @param
- *      session     [in] A handle to the ElaSession.
+ *      session     [in] A handle to the IOEXSession.
  * @param
  *      sdp         [in] The remote users SDP. End the null terminal.
  *                       Reference: https://tools.ietf.org/html/rfc4566
@@ -381,86 +419,54 @@ internal func IOEX_session_reply_request(_ session: OpaquePointer!,
  *      0 on success, or -1 if an error occurred. The specific error code
  *      can be retrieved by calling IOEX_get_error().
  */
-@_silgen_name("IOEX_session_start")
-internal func IOEX_session_start(_ session: OpaquePointer!,
-                                _ sdp: UnsafePointer<Int8>!,
-                                _ len: Int) -> Int32
+CARRIER_API
+int IOEX_session_start(IOEXSession *session, const char *sdp, size_t len);
+
+/* Session stream APIs */
+
 /**
  * \~English
  * Carrier stream state.
  * The stream status will be changed according to the phase of the stream.
  */
-internal struct CStreamState : RawRepresentable, Equatable {
-
-    init(_ rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    init(rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    var rawValue: UInt32
-}
-
-/** Initialized stream */
-internal var CStreamState_initialized: CStreamState { get { return CStreamState(1) } }
-/** The underlying transport is ready for the stream. */
-internal var CStreamState_transport_ready: CStreamState { get { return CStreamState(2) } }
-/** The stream is trying to connecting the remote. */
-internal var CStreamState_connecting: CStreamState { get { return CStreamState(3) } }
-/** The stream connected with remote */
-internal var CStreamState_connected: CStreamState { get { return CStreamState(4) } }
-/** The stream is deactivated */
-internal var CStreamState_deactivated: CStreamState { get { return CStreamState(5) } }
-/** The stream closed normally */
-internal var CStreamState_closed: CStreamState { get { return CStreamState(6) } }
-/** The stream is failed, cannot to continue. */
-internal var CStreamState_failed: CStreamState { get { return CStreamState(7) } }
+typedef enum IOEXStreamState {
+    /** Initialized stream */
+    IOEXStreamState_initialized = 1,
+    /** The underlying transport is ready for the stream. */
+    IOEXStreamState_transport_ready,
+    /** The stream is trying to connecting the remote. */
+    IOEXStreamState_connecting,
+    /** The stream connected with remote */
+    IOEXStreamState_connected,
+    /** The stream is deactivated */
+    IOEXStreamState_deactivated,
+    /** The stream closed normally */
+    IOEXStreamState_closed,
+    /** The stream is failed, cannot to continue. */
+    IOEXStreamState_failed
+} IOEXStreamState;
 
 /**
  * \~English
  * Portforwarding supported protocols.
  */
-internal struct CPortForwardingProtocol : RawRepresentable, Equatable {
-
-    init(_ rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    init(rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    var rawValue: UInt32
-}
-
-/** TCP protocol. */
-internal var CPortForwardingProtocol_TCP: CPortForwardingProtocol { get { return CPortForwardingProtocol(1) } }
+typedef enum PortForwardingProtocol {
+    /** TCP protocol. */
+    PortForwardingProtocol_TCP = 1
+} PortForwardingProtocol;
 
 /**
  * \~English
  * Multiplexing channel close reason code.
  */
-internal struct CCloseReason : RawRepresentable, Equatable {
-
-    init(_ rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    init(rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
-
-    var rawValue: UInt32
-}
-
-/* Channel closed normally. */
-internal var CCloseReason_Normal: CCloseReason { get { return CCloseReason(0) } }
-/* Channel closed because timeout. */
-internal var CCloseReason_Timeout: CCloseReason { get { return CCloseReason(1) } }
-/* Channel closed because error ocurred. */
-internal var CCloseReason_Error: CCloseReason { get { return CCloseReason(2) } }
+typedef enum CloseReason {
+    /* Channel closed normally. */
+    CloseReason_Normal = 0,
+    /* Channel closed because timeout. */
+    CloseReason_Timeout = 1,
+    /* Channel closed because error ocurred. */
+    CloseReason_Error = 2
+} CloseReason;
 
 /**
  * \~English
@@ -469,24 +475,23 @@ internal var CCloseReason_Error: CCloseReason { get { return CCloseReason(2) } }
  * Include stream status callback, stream data callback, and multiplexing
  * callbacks.
  */
-internal struct CStreamCallbacks {
-
+typedef struct IOEXStreamCallbacks {
     /* Common callbacks */
     /**
      * \~English
      * Callback to report status of various stream operations.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
-     *      state       [in] Stream state defined in ElaStreamState.
+     *      state       [in] Stream state defined in IOEXStreamState.
      * @param
      *      context     [in] The application defined context data.
      */
-    var state_changed: (@convention(c) (OpaquePointer?, Int32, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
-
+    void (*state_changed)(IOEXSession *session, int stream,
+                          IOEXStreamState state, void *context);
 
     /* Stream callbacks */
     /**
@@ -499,7 +504,7 @@ internal struct CStreamCallbacks {
      * as multiplexing channel data.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
@@ -509,7 +514,8 @@ internal struct CStreamCallbacks {
      * @param
      *      context     [in] The application defined context data.
      */
-    var stream_data: (@convention(c) (OpaquePointer?, Int32, UnsafeRawPointer?, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
+    void (*stream_data)(IOEXSession *session, int stream,
+                        const void *data, size_t len, void *context);
 
     /* Multiplexer callbacks */
     /**
@@ -517,7 +523,7 @@ internal struct CStreamCallbacks {
      * Callback will be called when new multiplexing channel request to open.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
@@ -532,14 +538,15 @@ internal struct CStreamCallbacks {
      *      The channel will continue to open only this callback return true,
      *      otherwise the channel will be closed.
      */
-    var channel_open: (@convention(c) (OpaquePointer?, Int32, Int32, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Bool)!
+    bool (*channel_open)(IOEXSession *session, int stream, int channel,
+                         const char *cookie, void *context);
 
     /**
      * \~English
      * Callback will be called when new multiplexing channel opened.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
@@ -547,14 +554,15 @@ internal struct CStreamCallbacks {
      * @param
      *      context     [in] The application defined context data.
      */
-    var channel_opened: (@convention(c) (OpaquePointer?, Int32, Int32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    void (*channel_opened)(IOEXSession *session, int stream, int channel,
+                           void *context);
 
     /**
      * \~English
      * Callback will be called when channel close.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
@@ -564,14 +572,15 @@ internal struct CStreamCallbacks {
      * @param
      *      context     [in] The application defined context data.
      */
-    var channel_close: (@convention(c) (OpaquePointer?, Int32, Int32, UInt32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    void (*channel_close)(IOEXSession *session, int stream, int channel,
+                          CloseReason reason, void *context);
 
     /**
      * \~English
      * Callback will be called when channel received incoming data.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
@@ -588,14 +597,15 @@ internal struct CStreamCallbacks {
      *      If this callback return false, the channel will be closed
      *      with CloseReason_Error.
      */
-    var channel_data: (@convention(c) (OpaquePointer?, Int32, Int32, UnsafeRawPointer?, Int, UnsafeMutableRawPointer?) -> Bool)!
+    bool (*channel_data)(IOEXSession *session, int stream, int channel,
+                         const void *data, size_t len, void *context);
 
     /**
      * \~English
      * Callback will be called when remote peer ask to pend data sending.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
@@ -603,14 +613,15 @@ internal struct CStreamCallbacks {
      * @param
      *      context     [in] The application defined context data.
      */
-    var channel_pending: (@convention(c) (OpaquePointer?, Int32, Int32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    void (*channel_pending)(IOEXSession *session, int stream, int channel,
+                            void *context);
 
     /**
      * \~English
      * Callback will be called when remote peer ask to resume data sending.
      *
      * @param
-     *      session     [in] The handle to the ElaSession.
+     *      session     [in] The handle to the IOEXSession.
      * @param
      *      stream      [in] The stream ID.
      * @param
@@ -618,10 +629,43 @@ internal struct CStreamCallbacks {
      * @param
      *      context     [in] The application defined context data.
      */
-    var channel_resume: (@convention(c) (OpaquePointer?, Int32, Int32, UnsafeMutableRawPointer?) -> Swift.Void)!
+    void (*channel_resume)(IOEXSession *session, int stream, int channel,
+                           void *context);
+} IOEXStreamCallbacks;
 
-    init() {}
-}
+/**
+ * Compress option, indicates data would be compressed before transmission.
+ * For now, just reserved this bit option for future implement.
+ */
+#define IOEX_STREAM_COMPRESS             0x01
+
+/**
+ * Encrypt option, indicates data would be transmitted with plain mode.
+ * which means that transmitting data would be encrypted in default.
+ */
+#define IOEX_STREAM_PLAIN                0x02
+
+/**
+ * Relaible option, indicates data transmission would be reliable, and be
+ * guranteed to received by remote peer, which acts as TCP transmission
+ * protocol. Without this option bitwised, the transmission would be
+ * unreliable as UDP transmission protocol.
+ */
+#define IOEX_STREAM_RELIABLE             0x04
+
+/**
+ * Multiplexing option, indicates multiplexing would be activated on
+ * enstablished stream, and need to use multipexing APIs related with channel
+ * instread of APIs related strema to send/receive data.
+ */
+#define IOEX_STREAM_MULTIPLEXING         0x08
+
+/**
+ * PortForwarding option, indicates port forwarding would be activated
+ * on established stream. This options should bitwise with 'Multiplexing'
+ * option.
+ */
+#define IOEX_STREAM_PORT_FORWARDING      0x10
 
 /**
  * \~English
@@ -639,9 +683,9 @@ internal struct CStreamCallbacks {
  *  not provide reliable transport.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
- *      type        [in] The stream type defined in ElaStreamType.
+ *      type        [in] The stream type defined in IOEXStreamType.
  * @param
  *      options     [in] The stream mode options. options are constructed
  *                       by a bitwise-inclusive OR of flags from the
@@ -658,7 +702,7 @@ internal struct CStreamCallbacks {
  *
  * @param
  *      callbacks   [in] The Application defined callback functions in
- *                       ElaStreamCallbacks.
+ *                       IOEXStreamCallbacks.
  * @param
  *      context     [in] The application defined context data.
  *
@@ -667,19 +711,16 @@ internal struct CStreamCallbacks {
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_session_add_stream")
-internal func IOEX_session_add_stream(_ session: OpaquePointer!,
-                                     _ type: CStreamType,
-                                     _ options: Int32,
-                                     _ callbacks: UnsafeMutablePointer<CStreamCallbacks>!,
-                                     _ context: UnsafeMutableRawPointer!) -> Int32
+CARRIER_API
+int IOEX_session_add_stream(IOEXSession *session, IOEXStreamType type,
+                 int options, IOEXStreamCallbacks *callbacks, void *context);
 
 /**
  * \~English
  * Remove a stream from session.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream id to be removed.
  *
@@ -688,9 +729,8 @@ internal func IOEX_session_add_stream(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_session_remove_stream")
-internal func IOEX_session_remove_stream(_ session: OpaquePointer!,
-                                        _ stream: Int32) -> Int32
+CARRIER_API
+int IOEX_session_remove_stream(IOEXSession *session, int stream);
 
 /**
  * \~English
@@ -700,7 +740,7 @@ internal func IOEX_session_remove_stream(_ session: OpaquePointer!,
  * request.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      service     [in] The new service name, should be unique
  *                       in session scope.
@@ -716,12 +756,9 @@ internal func IOEX_session_remove_stream(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_session_add_service")
-internal func IOEX_session_add_service(_ session: OpaquePointer!,
-                                      _ service: UnsafePointer<Int8>!,
-                                      _ protocol: CPortForwardingProtocol,
-                                      _ host: UnsafePointer<Int8>!,
-                                      _ port: UnsafePointer<Int8>!) -> Int32
+CARRIER_API
+int IOEX_session_add_service(IOEXSession *session, const char *service,
+        PortForwardingProtocol protocol, const char *host, const char *port);
 
 /**
  * \~English
@@ -730,77 +767,73 @@ internal func IOEX_session_add_service(_ session: OpaquePointer!,
  * This function has not effect on existing portforwarings.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      service     [in] The service name.
  */
-@_silgen_name("IOEX_session_remove_service")
-internal func IOEX_session_remove_service(_ session: OpaquePointer!,
-                                         _ service: UnsafePointer<Int8>!)
+CARRIER_API
+void IOEX_session_remove_service(IOEXSession *session, const char *service);
 
 /**
  * \~English
  * Get the carrier stream type.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
- *      type        [out] The stream type defined in ElaStreamType.
+ *      type        [out] The stream type defined in IOEXStreamType.
  *
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_get_type")
-internal func IOEX_stream_get_type(_ session: OpaquePointer!,
-                                  _ stream: Int32,
-                                  _ type: UnsafeMutablePointer<CStreamType>!) -> Int32
+CARRIER_API
+int IOEX_stream_get_type(IOEXSession *session, int stream,
+                            IOEXStreamType *type);
 
 /**
  * \~English
  * Get the carrier stream current state.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
- *      state       [out] The stream state defined in ElaStreamState.
+ *      state       [out] The stream state defined in IOEXStreamState.
  *
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_get_state")
-internal func IOEX_stream_get_state(_ session: OpaquePointer!,
-                                   _ stream: Int32,
-                                   _ state: UnsafeMutablePointer<CStreamState>) -> Int32
+CARRIER_API
+int IOEX_stream_get_state(IOEXSession *session, int stream,
+                         IOEXStreamState *state);
 
 /**
  * \~English
  * Get the carrier stream transport information.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
  *      info        [out] The stream transport information defined in
- *                        ElaTransportInfo.
+ *                        IOEXTransportInfo.
  *
  * @return
  *      0 on success, or -1 if an error occurred.
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_get_transport_info")
-internal func IOEX_stream_get_transport_info(_ session: OpaquePointer!,
-                                            _ stream: Int32,
-                                            _ info: UnsafeMutablePointer<CTransportInfo>!) -> Int32
+CARRIER_API
+int IOEX_stream_get_transport_info(IOEXSession *session, int stream,
+                                      IOEXTransportInfo *info);
 
 /**
  * \~English
@@ -811,7 +844,7 @@ internal func IOEX_stream_get_transport_info(_ session: OpaquePointer!,
  * on multiplexing mode stream, it will return error.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -824,11 +857,9 @@ internal func IOEX_stream_get_transport_info(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_write")
-internal func IOEX_stream_write(_ session: OpaquePointer!,
-                               _ stream: Int32,
-                               _ data: UnsafeRawPointer!,
-                               _ len: Int) -> Int
+CARRIER_API
+ssize_t IOEX_stream_write(IOEXSession *session, int stream,
+                             const void *data, size_t len);
 
 /**
  * \~English
@@ -837,7 +868,7 @@ internal func IOEX_stream_write(_ session: OpaquePointer!,
  * If the stream is not multiplexing this function will fail.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -848,11 +879,9 @@ internal func IOEX_stream_write(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_open_channel")
-internal func IOEX_stream_open_channel(_ session: OpaquePointer!,
-                                      _ stream: Int32,
-                                      _ cookie: UnsafePointer<Int8>!) -> Int32
-
+CARRIER_API
+int IOEX_stream_open_channel(IOEXSession *session, int stream,
+                                const char *cookie);
 
 /**
  * \~English
@@ -861,7 +890,7 @@ internal func IOEX_stream_open_channel(_ session: OpaquePointer!,
  * If the stream is not multiplexing this function will fail.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -872,10 +901,8 @@ internal func IOEX_stream_open_channel(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_close_channel")
-internal func IOEX_stream_close_channel(_ session: OpaquePointer!,
-                                       _ stream: Int32,
-                                       _ channel: Int32) -> Int32
+CARRIER_API
+int IOEX_stream_close_channel(IOEXSession *session, int stream, int channel);
 
 /**
  * \~English
@@ -884,7 +911,7 @@ internal func IOEX_stream_close_channel(_ session: OpaquePointer!,
  * If the stream is not multiplexing this function will fail.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -899,12 +926,9 @@ internal func IOEX_stream_close_channel(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_write_channel")
-internal func IOEX_stream_write_channel(_ session: OpaquePointer!,
-                                       _ stream: Int32,
-                                       _ channel: Int32,
-                                       _ data: UnsafeRawPointer!,
-                                       _ len: Int) -> Int
+CARRIER_API
+ssize_t IOEX_stream_write_channel(IOEXSession *session, int stream,
+                    int channel, const void *data, size_t len);
 
 /**
  * \~English
@@ -913,7 +937,7 @@ internal func IOEX_stream_write_channel(_ session: OpaquePointer!,
  * If the stream is not multiplexing this function will fail.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -924,10 +948,9 @@ internal func IOEX_stream_write_channel(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_pend_channel")
-internal func IOEX_stream_pend_channel(_ session: OpaquePointer!,
-                                      _ stream: Int32,
-                                      _ channel: Int32) -> Int32
+CARRIER_API
+int IOEX_stream_pend_channel(IOEXSession *session, int stream, int channel);
+
 /**
  * \~English
  * Request remote peer to resume channel data sending.
@@ -935,7 +958,7 @@ internal func IOEX_stream_pend_channel(_ session: OpaquePointer!,
  * If the stream is not multiplexing this function will fail.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -946,10 +969,8 @@ internal func IOEX_stream_pend_channel(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_resume_channel")
-internal func IOEX_stream_resume_channel(_ session: OpaquePointer!,
-                                        _ stream: Int32,
-                                        _ channel: Int32) -> Int32
+CARRIER_API
+int IOEX_stream_resume_channel(IOEXSession *session, int stream, int channel);
 
 /**
  * \~English
@@ -958,7 +979,7 @@ internal func IOEX_stream_resume_channel(_ session: OpaquePointer!,
  * If the stream is not multiplexing this function will fail.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -976,13 +997,10 @@ internal func IOEX_stream_resume_channel(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_open_port_forwarding")
-internal func IOEX_stream_open_port_forwarding(_ session: OpaquePointer!,
-                                              _ stream: Int32,
-                                              _ service: UnsafePointer<Int8>!,
-                                              _ protocol: CPortForwardingProtocol,
-                                              _ host: UnsafePointer<Int8>!,
-                                              _ port: UnsafePointer<Int8>!) -> Int32
+CARRIER_API
+int IOEX_stream_open_port_forwarding(IOEXSession *session, int stream,
+        const char *service, PortForwardingProtocol protocol,
+        const char *host, const char *port);
 
 /**
  * \~English
@@ -991,7 +1009,7 @@ internal func IOEX_stream_open_port_forwarding(_ session: OpaquePointer!,
  * If the stream is not multiplexing this function will fail.
  *
  * @param
- *      session     [in] The handle to the ElaSession.
+ *      session     [in] The handle to the IOEXSession.
  * @param
  *      stream      [in] The stream ID.
  * @param
@@ -1002,8 +1020,16 @@ internal func IOEX_stream_open_port_forwarding(_ session: OpaquePointer!,
  *      The specific error code can be retrieved by calling
  *      IOEX_get_error().
  */
-@_silgen_name("IOEX_stream_close_port_forwarding")
-internal func IOEX_stream_close_port_forwarding(_ session: OpaquePointer!,
-                                               _ stream: Int32,
-                                               _ portforwarding: Int32) -> Int32
+CARRIER_API
+int IOEX_stream_close_port_forwarding(IOEXSession *session, int stream,
+                                     int portforwarding);
 
+#ifdef __cplusplus
+}
+#endif
+
+#if defined(__APPLE__)
+#pragma GCC diagnostic pop
+#endif
+
+#endif /* __IOEX_SESSION_H__ */
