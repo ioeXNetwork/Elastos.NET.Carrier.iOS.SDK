@@ -983,3 +983,4 @@ internal func ela_stream_open_port_forwarding(_ session: OpaquePointer!,
 internal func ela_stream_close_port_forwarding(_ session: OpaquePointer!,
                                                _ stream: Int32,
                                                _ portforwarding: Int32) -> Int32
+

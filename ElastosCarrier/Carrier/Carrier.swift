@@ -77,21 +77,6 @@ public class Carrier: NSObject {
         return (Base58.decode(id)?.count == 32)
     }
 
-    /// Extract ID from the carrier node address.
-    ///
-    /// - Parameter address: The carrier node address.
-    ///
-    /// - Returns: Valid Id if carrier node address is valid, otherwise nil
-    public static func getIdFromAddress(_ address: String) -> String? {
-        let addr = Base58.decode(address);
-
-        if addr?.count == 38 {
-            return Base58.encode(Array(addr!.prefix(32)))
-        } else {
-            return nil
-        }
-    }
-
     /// Set log level for carrier node.
     /// Default level to control log output is `CarrierLogLevel.Info`
     ///
@@ -115,9 +100,9 @@ public class Carrier: NSObject {
     public static func getInstance(options: CarrierOptions,
                                    delegate: CarrierDelegate) throws -> Carrier {
         if (carrierInst == nil) {
-            Log.d(TAG, "Attempt to create native carrier instance ...")
-
+            Log.i(TAG, "Attempt to create native carrier instance ...")
             var copts = convertCarrierOptionsToCOptions(options);
+            Log.d(TAG, "options %s",copts.bootstraps!)
             defer {
                 cleanupCOptions(copts)
             }
@@ -129,14 +114,14 @@ public class Carrier: NSObject {
 
             guard ccarrier != nil else {
                 let errno = getErrorCode()
-                Log.e(TAG, "Create native carrier instance error: 0x%X", errno)
+                Log.d(TAG, "Create native carrier instance error: 0x%X", errno)
                 throw CarrierError.InternalError(errno: errno)
             }
 
             carrier.ccarrier = ccarrier
             carrier.didKill = false
 
-            Log.i(TAG, "Native carrier node instance created.")
+            Log.d(TAG, "Native carrier node instance created.")
             carrierInst = carrier
         }
         return carrierInst!
@@ -215,18 +200,18 @@ public class Carrier: NSObject {
     ///
     /// Returns: The node address
     public func getAddress() -> String {
-        let len = Carrier.MAX_ADDRESS_LEN + 1
-        var data = Data(count: len);
-
-        let address = data.withUnsafeMutableBytes() {
-            (ptr: UnsafeMutablePointer<Int8>) -> String in
-            return String(cString: ela_get_address(ccarrier, ptr, len))
+            let len = Carrier.MAX_ADDRESS_LEN + 1
+            var data = Data(count: len);
+        
+            let address = data.withUnsafeMutableBytes() {
+                (ptr: UnsafeMutablePointer<Int8>) -> String in
+                return String(cString: ela_get_address(ccarrier, ptr, len))
+            }
+        
+            Log.d(Carrier.TAG, "Current carrier address: \(address)")
+            return address;
         }
-
-        Log.d(Carrier.TAG, "Current carrier address: \(address)")
-        return address;
-    }
-
+    
     /// Get node identifier associated with the carrier node instance.
     ///
     /// - Returns: The node identifier
@@ -740,4 +725,36 @@ public class Carrier: NSObject {
 
         Log.d(Carrier.TAG, "Sended reply to friend invite request to \(target)")
     }
+    
+    /**
+     KJ Test
+     */
+    //@objc(TSFile_Init:)
+    public func TSFile_Init(carrier: Carrier, filePath:String) -> Int32 {
+
+        let cb: CReceivedComplete = {
+            fileName,realFileName  in
+            
+            print("filename = \(String(describing: fileName)), realFileNmae = \(String(describing: realFileName))")
+            
+            var dele:CarrierDelegate?
+            dele?.didTSFileReceivedComplete(_FileName: String(describing: fileName), _RealFileName: String(describing: realFileName) )
+        }
+        
+        IOEX_TSFile_ReceivedComplete_Callback(carrier: ccarrier, cb)
+        return IOEX_TSFile_Init(ccarrier, path: filePath)
+    }
+    
+    //@objc(TSFile_Request:)
+    public func TSFile_Request(carrier: Carrier,
+                               address:String,
+                               filename:String,
+                               start_byte:Int) -> Int32 {
+        return IOEX_TSFile_Request(ccarrier, address: address, filename: filename, start_byte: start_byte)
+    }
+    
+//    func TSFile_ReceivedComplete_Callback(carrier: Carrier, callbackf:@escaping CReceivedComplete ) -> Int32 {
+//        return IOEX_TSFile_ReceivedComplete_Callback(carrier: ccarrier, callbackf)
+//    }
+    
 }

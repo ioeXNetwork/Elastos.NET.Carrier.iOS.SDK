@@ -194,6 +194,22 @@ private func onFriendInvite(_: OpaquePointer?, cfrom: UnsafePointer<Int8>?,
     handler.didReceiveFriendInviteRequest?(carrier, from, data)
 }
 
+/**
+ KJ Test
+ */
+private func onTSFileReceivedComplete(_: OpaquePointer?,
+                                      cfilename: UnsafePointer<Int8>?,
+                                      crealfilename: UnsafePointer<Int8>?,
+                            cctxt: UnsafeMutableRawPointer?) {
+    let carrier = getCarrier(cctxt!)
+    let handler = carrier.delegate!
+    
+    let fname = String(cString: cfilename!)
+    let rfname = String(cString: crealfilename!)
+    
+    handler.didTSFileReceivedComplete!(_FileName: fname, _RealFileName: rfname)
+}
+
 internal func getNativeHandlers() -> CCallbacks {
 
     var callbacks = CCallbacks()
@@ -211,6 +227,8 @@ internal func getNativeHandlers() -> CCallbacks {
     callbacks.friend_removed = onFriendRemoved
     callbacks.friend_message = onFriendMessage
     callbacks.friend_invite = onFriendInvite
+    callbacks.TSFile_ReceivedComplete_Callback = onTSFileReceivedComplete
+    
 
     return callbacks
 }

@@ -263,9 +263,9 @@ public class CarrierSession: NSObject {
         }
 
         if status == 0 {
-            Log.d(TAG(), "Attempt to confirm session invite request to \(to).")
+            Log.i(TAG(), "Attempt to confirm session invite request to \(to).")
         } else {
-            Log.d(TAG(), "Attempt to refuse sesion invite request to \(to)" +
+            Log.i(TAG(), "Attempt to refuse sesion invite request to \(to)" +
                 " with status \(status) and reason \(reason!)")
         }
 
@@ -287,14 +287,14 @@ public class CarrierSession: NSObject {
         let result = ela_session_reply_request(csession, Int32(status), creason)
         guard result >= 0 else {
             let errno = getErrorCode()
-            Log.e(TAG(), "Reply session invite request error: 0x%X", errno)
+            Log.i(TAG(), "Reply session invite request error: 0x%X", errno)
             throw CarrierError.InternalError(errno: errno)
         }
 
         if status == 0 {
-            Log.d(TAG(), "Confirmed the session invite requst to \(to)")
+            Log.i(TAG(), "Confirmed the session invite requst to \(to)")
         } else {
-            Log.d(TAG(), "Refused the sesion invite to \(to) with reason \(reason!)")
+            Log.i(TAG(), "Refused the sesion invite to \(to) with reason \(reason!)")
         }
     }
 
@@ -462,5 +462,6 @@ public class CarrierSession: NSObject {
 
         Log.d(TAG(), "Service \(serviceName) was removed from session.")
     }
+
 }
 

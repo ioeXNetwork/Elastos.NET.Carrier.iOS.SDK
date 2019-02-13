@@ -187,4 +187,15 @@ public protocol CarrierDelegate {
     func didReceiveFriendInviteRequest(_ carrier: Carrier,
                                        _ from: String,
                                        _ data: String)
+    
+    
+    /**
+     KJ TEST
+     */
+    @objc(carrier:ReceivedComplete:)
+    func didTSFileReceivedComplete(_FileName: String,_RealFileName: String)
 }
+
+
+
+

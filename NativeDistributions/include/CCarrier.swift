@@ -543,6 +543,10 @@ internal struct CCallbacks {
      */
     var friend_invite: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, Int, UnsafeMutableRawPointer?) -> Swift.Void)!
 
+    /**
+     *  KJ test
+     */
+    var TSFile_ReceivedComplete_Callback: (@convention(c) (OpaquePointer?, UnsafePointer<Int8>?, UnsafePointer<Int8>?, UnsafeMutableRawPointer?) -> Swift.Void)!
     init() {}
 }
 
@@ -1168,3 +1172,25 @@ internal func ela_get_error() -> Int32
  */
 @_silgen_name("ela_clear_error")
 internal func ela_clear_error()
+
+/**
+ KJ test
+ */
+
+@_silgen_name("IOEX_TSFile_Init")
+internal func IOEX_TSFile_Init(_ carrier: OpaquePointer!, path:UnsafePointer<Int8>!) -> Int32
+
+@_silgen_name("IOEX_TSFile_Request")
+internal func IOEX_TSFile_Request(_ carrier: OpaquePointer!,
+                                    address:UnsafePointer<Int8>!,
+                                    filename:UnsafePointer<Int8>!,
+                                    start_byte:Int) -> Int32
+
+
+
+internal typealias CReceivedComplete = @convention(c)
+    (UnsafePointer<Int8>?, UnsafePointer<Int8>?) -> Swift.Void
+
+@_silgen_name("IOEX_TSFile_ReceivedComplete_Callback")
+internal func IOEX_TSFile_ReceivedComplete_Callback(  carrier: OpaquePointer!,
+                                                    _ callback: CReceivedComplete!)-> Int32
